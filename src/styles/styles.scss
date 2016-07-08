@@ -1,0 +1,58 @@
+body {
+  color: #4d4d4d;
+  font-family: Roboto, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  letter-spacing: .01em;
+  line-height: 1.6;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 112rem;
+  padding: 3em 2rem 0;
+  position: relative;
+  width: 100%;
+}
+
+.error-msg {
+  margin-left: .5rem;
+  color: #e50000;
+}
+
+.form-group {
+  margin-top: .6rem;
+  margin-bottom: .6rem;
+
+  label {
+    font-weight: bold;
+  }
+}
+
+.text-center {
+  text-align: center;
+}
+
+.table-loading {
+  text-align: center;
+}
+
+/*****************************
+ * Bootstrap mock styles
+ *****************************/
+.alert {
+  padding: 8px 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
+.text-muted {
+  color: #999;
+}
