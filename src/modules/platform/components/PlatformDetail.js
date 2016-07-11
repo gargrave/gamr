@@ -1,11 +1,12 @@
 import React, {PropTypes} from 'react';
+import {Link} from 'react-router';
 
 
 const PlatformDetail = ({platform}) => {
   return (
     <article className="card">
       <header>
-        <h3>{platform.name}</h3>
+        <h3><Link to={`/platform/${platform.id}`}>{platform.name}</Link></h3>
       </header>
       <p>
         created: {platform.created}&nbsp;|

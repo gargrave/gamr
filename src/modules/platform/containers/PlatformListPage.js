@@ -12,10 +12,10 @@ class PlatformListPage extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this.redirectToPlatformCreatePage = this.redirectToPlatformCreatePage.bind(this);
+    this.redirectToCreatePage = this.redirectToCreatePage.bind(this);
   }
 
-  redirectToPlatformCreatePage() {
+  redirectToCreatePage() {
     goto.route('/platform/new');
   }
 
@@ -29,7 +29,7 @@ class PlatformListPage extends React.Component {
 
         <button
           className="button success"
-          onClick={this.redirectToPlatformCreatePage}
+          onClick={this.redirectToCreatePage}
           >Add a Platform
         </button>
 

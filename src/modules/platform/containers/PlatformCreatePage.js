@@ -26,7 +26,7 @@ class PlatformCreatePage extends React.Component {
     this.onCancel = this.onCancel.bind(this);
   }
 
-  redirectToPlatformListPage() {
+  redirectToListPage() {
     goto.route('/platform');
   }
 
@@ -51,7 +51,7 @@ class PlatformCreatePage extends React.Component {
         .then(res => {
           this.setState({ working: false });
           toastr.success('platform created', 'Success');
-          this.redirectToPlatformListPage();
+          this.redirectToListPage();
         }, err => {
           this.setState({
             working: false,
@@ -64,7 +64,7 @@ class PlatformCreatePage extends React.Component {
 
   onCancel(event) {
     event.preventDefault();
-    this.redirectToPlatformListPage();
+    this.redirectToListPage();
   }
 
   /*=============================================
