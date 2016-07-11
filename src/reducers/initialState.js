@@ -3,5 +3,6 @@ export default {
   profile: {},
   api: {
     authApiWorking: false
-  }
+  },
+  platforms: {}
 };

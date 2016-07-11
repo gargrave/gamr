@@ -8,6 +8,7 @@ const SideNav = () => {
       <h2>Navigation</h2>
       <ul>
         <li><IndexLink to="/">Home</IndexLink></li>
+        <li><Link to="/platform">Platforms</Link></li>
         <li><Link to="/account">Account</Link></li>
         <li><Link to="/about">About</Link></li>
       </ul>
