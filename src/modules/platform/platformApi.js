@@ -6,7 +6,7 @@ const MODULE_NAME = 'platforms';
 const DB = firebase.database();
 
 const getUrlFor = function(user, obj) {
-  return DB.ref(`${MODULE_NAME}/${user.uid}`);
+  return DB.ref(`${MODULE_NAME}/${user.uid}/${obj.id}`);
 };
 
 const buildRecordData = function(record) {
@@ -60,16 +60,10 @@ class PlatformApi {
     return new Promise((resolve, reject) => {
       if (auth.isLoggedIn()) {
         let recordUrl = getUrlFor(auth.user(), record);
+        let platform = buildRecordData(record);
+        platform.created = record.created;
 
-        // make sure we don't send the record with an id field, since the server already knows it
-        if (record.hasOwnProperty('id')) {
-          delete record.id;
-        }
-
-        let modified = new Date();
-        record.modified = modified.getTime();
-
-        recordUrl.update(record, err => {
+        recordUrl.update(platform, err => {
           if (err) {
             reject(err);
           } else {

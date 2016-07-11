@@ -9,7 +9,7 @@ const buildRecordData = function(record) {
   let dateNow = new Date();
   return {
     name: record.name.trim(),
-    created: record.created || dateNow.getTime(),
+    created: dateNow.getTime(),
     modified: dateNow.getTime()
   };
 };
@@ -71,42 +71,49 @@ class PlatformApiMock {
   static createRecord(record) {
     console.log('MOCK PLATFORM API: using mock API -> createRecord()');
     return new Promise((resolve, reject) => {
-      let userId = auth.user().uid.toString();
-      let userPlatforms = platforms[userId];
+      if (auth.isLoggedIn()) {
+        let userId = auth.user().uid.toString();
+        let userPlatforms = platforms[userId];
 
-      let id = (platformId++).toString();
-      let platform = buildRecordData(record);
-      userPlatforms[id] = platform;
+        let id = (platformId++).toString();
+        let platform = buildRecordData(record);
+        userPlatforms[id] = platform;
 
-      this.notifyListeners();
-      resolve(platform);
+        this.notifyListeners();
+        resolve(platform);
+      } else {
+        reject('Not logged in'); // not logged in; reject immediately
+      }
     });
   }
 
   /** Updates an existing record in the DB. */
   static updateRecord(record) {
     console.log('MOCK PLATFORM API: using mock API -> updateRecord()');
-    if (auth.isLoggedIn()) {
-      let userId = auth.user().uid.toString();
-      let existingProfile = platforms[userId];
+    return new Promise((resolve, reject) => {
+      if (auth.isLoggedIn()) {
+        let userPlatforms = platforms[auth.user().uid.toString()];
+        let id = record.id;
 
-      if (existingProfile) {
-        return new Promise((resolve) => {
+        if (userPlatforms[id]) {
           setTimeout(() => {
-            let updatedProfile = buildRecordData(record);
-            let id = record.id;
-            let modified = new Date();
-
-            updatedProfile.modified = modified.getTime();
-            updatedProfile.id = id;
-            platforms[userId] = updatedProfile;
+            let platform = buildRecordData(record);
+            platform.id = id;
+            platform.created = record.created;
+            userPlatforms[id] = platform;
 
             this.notifyListeners();
             resolve();
           }, MOCK_API_DELAY);
-        });
+        } else {
+          reject(`No Platform found with id: ${id}.`);
+        }
+      } else {
+        reject('Not logged in'); // not logged in; reject immediately
       }
-    }
+    });
+
+
   }
 
   /** Adds a listener to db state change events. */

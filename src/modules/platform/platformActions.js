@@ -83,7 +83,7 @@ export function updatePlatform(platform) {
     dispatch(updatePlatformBegin());
     return api.updateRecord(platform)
       .then(res => {
-        dispatch(updatePlatformSuccess(fbToArray(res)));
+        dispatch(updatePlatformSuccess(res));
       })
       .catch(err => {
         dispatch(updatePlatformError());

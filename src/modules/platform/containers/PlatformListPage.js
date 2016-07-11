@@ -29,8 +29,8 @@ class PlatformListPage extends React.Component {
 
         <button
           className="button success"
-          onClick={this.redirectToCreatePage}
-          >Add a Platform
+          onClick={this.redirectToCreatePage}>
+          Add a Platform
         </button>
 
         <PlatformList
