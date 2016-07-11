@@ -20,8 +20,8 @@ export default (
     <IndexRoute component={HomePage}/>
 
     <Route path="platform" component={PlatformListPage}/>
-    <Route path="platform/:id" component={PlatformDetailPage}/>
     <Route path="platform/new" component={PlatformCreatePage}/>
+    <Route path="platform/:id" component={PlatformDetailPage}/>
 
     <Route path="account" component={AccountPage}/>
     <Route path="account/login" component={LoginPage}/>
