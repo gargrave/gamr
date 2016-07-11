@@ -6,8 +6,11 @@ import {MOCK_API_DELAY} from '../../constants/env';
 
 
 const buildRecordData = function(record) {
+  let dateNow = new Date();
   return {
-    name: record.name.trim()
+    name: record.name.trim(),
+    created: record.created || dateNow.getTime(),
+    modified: dateNow.getTime()
   };
 };
 
@@ -65,12 +68,17 @@ class PlatformApiMock {
   }
 
   /** Creates and saves a new record to the DB. */
-  static createRecord(user) {
+  static createRecord(record) {
     console.log('MOCK PLATFORM API: using mock API -> createRecord()');
     return new Promise((resolve, reject) => {
+      let userId = auth.user().uid.toString();
+      let userPlatforms = platforms[userId];
+
       let id = (platformId++).toString();
-      let platform = this.getNewRecord();
-      platforms[user.uid][id] = platform;
+      let platform = buildRecordData(record);
+      userPlatforms[id] = platform;
+
+      this.notifyListeners();
       resolve(platform);
     });
   }
@@ -92,6 +100,7 @@ class PlatformApiMock {
             updatedProfile.modified = modified.getTime();
             updatedProfile.id = id;
             platforms[userId] = updatedProfile;
+
             this.notifyListeners();
             resolve();
           }, MOCK_API_DELAY);

@@ -10,8 +10,11 @@ const getUrlFor = function(user, obj) {
 };
 
 const buildRecordData = function(record) {
+  let dateNow = new Date();
   return {
-    name: record.name.trim()
+    name: record.name.trim(),
+    created: dateNow.getTime(),
+    modified: dateNow.getTime()
   };
 };
 
@@ -29,20 +32,26 @@ class PlatformApi {
   }
 
   /** Creates and saves a new record to the DB. */
-  static createProfile(user) {
+  static createRecord(record) {
     return new Promise((resolve, reject) => {
-      let dbRef = DB.ref(`${MODULE_NAME}/${user.uid}`);
-      let newRecordData = this.getNewRecord();
+      if (auth.isLoggedIn()) {
+        let userId = auth.user().uid.toString();
+        let dbRef = DB.ref(`${MODULE_NAME}/${userId}`);
+        let newRecordData = buildRecordData(record);
+        let newRecordRef = dbRef.push();
 
-      dbRef.set(newRecordData, err => {
-        if (err) {
-          reject(err);
-        } else {
-          dbRef.limitToLast(1).once('value', snapshot => {
-            resolve(snapshot.val());
-          });
-        }
-      });
+        newRecordRef.set(newRecordData, err => {
+          if (err) {
+            reject(err);
+          } else {
+            dbRef.limitToLast(1).once('value', snapshot => {
+              resolve(snapshot.val());
+            });
+          }
+        });
+      } else {
+        reject('Not logged in'); // not logged in; reject immediately
+      }
     });
   }
 

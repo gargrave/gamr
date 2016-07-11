@@ -15,7 +15,7 @@ export default function profileReducer(state = initialState.platforms, action) {
       return state;
 
     case types.LOGOUT_SUCCESS:
-      return {};
+      return [];
 
     default:
       return state;

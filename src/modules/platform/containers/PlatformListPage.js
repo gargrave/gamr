@@ -4,12 +4,19 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import * as actions from '../platformActions';
+import goto from '../../../utils/goto';
 import PlatformList from '../components/PlatformList';
 
 
 class PlatformListPage extends React.Component {
   constructor(props, context) {
     super(props, context);
+
+    this.redirectToPlatformCreatePage = this.redirectToPlatformCreatePage.bind(this);
+  }
+
+  redirectToPlatformCreatePage() {
+    goto.route('/platform/new');
   }
 
   /*=============================================
@@ -18,7 +25,14 @@ class PlatformListPage extends React.Component {
   render() {
     return (
       <div>
-        <h1>Platforms</h1>
+        <h2>Platforms</h2>
+
+        <button
+          className="button success"
+          onClick={this.redirectToPlatformCreatePage}
+          >Add a Platform
+        </button>
+
         <PlatformList
           platforms={this.props.platforms}
           />

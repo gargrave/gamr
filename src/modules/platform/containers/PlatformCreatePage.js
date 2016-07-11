@@ -1,0 +1,133 @@
+import React, {PropTypes} from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import toastr from 'toastr';
+
+import * as actions from '../platformActions';
+import validate from '../../../utils/validate';
+import goto from '../../../utils/goto';
+import api from '../platformApi';
+import PlatformForm from '../components/PlatformForm';
+
+
+class PlatformCreatePage extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+
+    this.state = {
+      platform: Object.assign({}, props.platform),
+      working: false,
+      errors: {},
+      apiError: ''
+    };
+
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.onCancel = this.onCancel.bind(this);
+  }
+
+  redirectToPlatformListPage() {
+    goto.route('/platform');
+  }
+
+  /*=============================================
+   = event handlers
+   =============================================*/
+  onChange(event) {
+    event.preventDefault();
+
+    let propKey = event.target.name;
+    let platform = this.state.platform;
+    platform[propKey] = event.target.value;
+    this.setState({ platform });
+  }
+
+  onSubmit(event) {
+    event.preventDefault();
+
+    if (this.isValid()) {
+      this.setState({ working: true });
+      this.props.actions.createPlatform(this.state.platform)
+        .then(res => {
+          this.setState({ working: false });
+          toastr.success('platform created', 'Success');
+          this.redirectToPlatformListPage();
+        }, err => {
+          this.setState({
+            working: false,
+            apiError: err.message
+          });
+          toastr.error('Error creating platform', 'Error');
+        });
+    }
+  }
+
+  onCancel(event) {
+    event.preventDefault();
+    this.redirectToPlatformListPage();
+  }
+
+  /*=============================================
+   = validation
+   =============================================*/
+  isValid() {
+    let valid = true;
+    let platform = this.state.platform;
+    let errors = {};
+
+    // validate first name
+    let nameParams = { required: true, minLength: 2 };
+    let nameVal = validate(platform.name, nameParams);
+    if (!nameVal.valid) {
+      errors.name = nameVal.error;
+      valid = false;
+    }
+
+    this.setState({ errors });
+    return valid;
+  }
+
+  render() {
+    let {apiError} = this.state;
+    return (
+      <div>
+        <h2>Add New platform</h2>
+
+        {apiError &&
+          <div className="alert alert-danger">Error: {apiError}</div>
+        }
+
+        <PlatformForm
+          platform={this.state.platform}
+          working={this.state.working}
+          onChange={this.onChange}
+          onSubmit={this.onSubmit}
+          onCancel={this.onCancel}
+          errors={this.state.errors}
+          />
+      </div>
+    );
+  }
+}
+
+PlatformCreatePage.propTypes = {
+  actions: PropTypes.object.isRequired,
+  platform: PropTypes.object.isRequired
+};
+
+/*=============================================
+ = Redux setup
+ =============================================*/
+function mapStateToProps(state, ownProps) {
+  return {
+    platform: api.getNewRecord()
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlatformCreatePage);

@@ -7,6 +7,7 @@ import AboutPage from './modules/common/AboutPage.js';
 import NotFoundPage from './modules/common/NotFoundPage.js';
 
 import PlatformListPage from './modules/platform/containers/PlatformListPage';
+import PlatformCreatePage from './modules/platform/containers/PlatformCreatePage';
 
 import AccountPage from './modules/account/containers/AccountPage';
 import LoginPage from './modules/account/containers/LoginPage';
@@ -18,6 +19,7 @@ export default (
     <IndexRoute component={HomePage}/>
 
     <Route path="platform" component={PlatformListPage}/>
+    <Route path="platform/new" component={PlatformCreatePage}/>
 
     <Route path="account" component={AccountPage}/>
     <Route path="account/login" component={LoginPage}/>

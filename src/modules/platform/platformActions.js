@@ -69,7 +69,7 @@ export function createPlatform(platform) {
     dispatch(createPlatformBegin());
     return api.createRecord(platform)
       .then(res => {
-        dispatch(createPlatformSuccess(fbToArray(res)));
+        dispatch(createPlatformSuccess(res));
       })
       .catch(err => {
         dispatch(createPlatformError());
