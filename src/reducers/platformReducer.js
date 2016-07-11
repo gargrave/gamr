@@ -8,6 +8,12 @@ export default function profileReducer(state = initialState.platforms, action) {
     case types.FETCH_PLATFORMS_SUCCESS:
       return action.platforms;
 
+    case types.CREATE_PLATFORM_SUCCESS:
+      return state;
+
+    case types.CREATE_PLATFORM_ERROR:
+      return state;
+
     case types.LOGOUT_SUCCESS:
       return {};
 

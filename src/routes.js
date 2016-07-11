@@ -6,7 +6,7 @@ import HomePage from './modules/common/HomePage';
 import AboutPage from './modules/common/AboutPage.js';
 import NotFoundPage from './modules/common/NotFoundPage.js';
 
-import PlatformList from './modules/platform/containers/PlatformList';
+import PlatformListPage from './modules/platform/containers/PlatformListPage';
 
 import AccountPage from './modules/account/containers/AccountPage';
 import LoginPage from './modules/account/containers/LoginPage';
@@ -17,7 +17,7 @@ export default (
   <Route path="/" component={App}>
     <IndexRoute component={HomePage}/>
 
-    <Route path="platform" component={PlatformList}/>
+    <Route path="platform" component={PlatformListPage}/>
 
     <Route path="account" component={AccountPage}/>
     <Route path="account/login" component={LoginPage}/>

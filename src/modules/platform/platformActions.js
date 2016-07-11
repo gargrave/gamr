@@ -60,7 +60,7 @@ function updatePlatformError() {
  =============================================*/
 export function fetchPlatformsSuccess(platforms) {
   return function(dispatch) {
-    dispatch(_fetchPlatformsSuccess(platforms));
+    dispatch(_fetchPlatformsSuccess(fbToArray(platforms)));
   };
 }
 

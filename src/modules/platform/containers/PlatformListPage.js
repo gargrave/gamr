@@ -4,9 +4,10 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import * as actions from '../platformActions';
+import PlatformList from '../components/PlatformList';
 
 
-class PlatformList extends React.Component {
+class PlatformListPage extends React.Component {
   constructor(props, context) {
     super(props, context);
   }
@@ -18,20 +19,25 @@ class PlatformList extends React.Component {
     return (
       <div>
         <h1>Platforms</h1>
+        <PlatformList
+          platforms={this.props.platforms}
+          />
       </div>
     );
   }
 }
 
-PlatformList.propTypes = {
+PlatformListPage.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  platforms: PropTypes.array.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
   return {
     loggedIn: !!state.user.email,
-    user: state.user
+    user: state.user,
+    platforms: state.platforms
   };
 }
 
@@ -41,4 +47,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlatformList);
+export default connect(mapStateToProps, mapDispatchToProps)(PlatformListPage);
