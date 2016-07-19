@@ -3,17 +3,11 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import toastr from 'toastr';
 
+import {AUTH_API} from '../../../constants/env';
 import * as actions from '../../profile/profileActions';
 import goto from '../../../utils/goto';
 import UserInfo from '../components/UserInfo';
 import ProfileForm from '../components/ProfileForm';
-
-import {USE_MOCK_APIS} from '../../../constants/env';
-import authApi from '../../auth/authApi';
-import authApiMock from '../../auth/authApiMock';
-
-
-const api = USE_MOCK_APIS ? authApiMock : authApi;
 
 
 class AccountPage extends React.Component {
@@ -41,7 +35,7 @@ class AccountPage extends React.Component {
 
   componentWillMount() {
     // redirect to login page if user is not logged in
-    if (!api.isLoggedIn()) {
+    if (!AUTH_API.isLoggedIn()) {
       this.redirectToLoginPage();
     }
   }
@@ -145,7 +139,7 @@ class AccountPage extends React.Component {
     event.preventDefault();
     this.setState({ working: true });
 
-    api.signOut()
+    AUTH_API.signOut()
       .then(() => {
         this.setState({ working: false });
         goto.route('/account/login');

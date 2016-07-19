@@ -2,16 +2,10 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import toastr from 'toastr';
 
+import {AUTH_API} from '../../../constants/env';
 import goto from '../../../utils/goto';
 import validate from '../../../utils/validate';
 import LoginForm from '../components/LoginForm';
-
-import {USE_MOCK_APIS} from '../../../constants/env';
-import authApi from '../../auth/authApi';
-import authApiMock from '../../auth/authApiMock';
-
-
-const api = USE_MOCK_APIS ? authApiMock : authApi;
 
 
 class LoginPage extends React.Component {
@@ -107,7 +101,7 @@ class LoginPage extends React.Component {
         apiError: ''
       });
 
-      api.signInWithEmail(user.email, user.pass)
+      AUTH_API.signInWithEmail(user.email, user.pass)
         .then(() => {
           this.resetState();
           toastr.success('Logged in', 'Success');
