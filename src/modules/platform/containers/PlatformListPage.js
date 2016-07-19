@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import {Link} from 'react-router';
 import {browserHistory} from 'react-router';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -23,19 +24,30 @@ class PlatformListPage extends React.Component {
    = Render
    =============================================*/
   render() {
+    const {loggedIn} = this.props;
     return (
       <div>
         <h2>Platforms</h2>
 
-        <button
-          className="button success"
-          onClick={this.redirectToCreatePage}>
-          Add a Platform
-        </button>
+        {!loggedIn &&
+          <section>
+            <h4>You are not logged in. Visit the <Link to="/account">Account Page</Link> to log in.</h4>
+          </section>
+        }
 
-        <PlatformList
-          platforms={this.props.platforms}
-          />
+        {loggedIn &&
+          <section>
+            <button
+              className="button success"
+              onClick={this.redirectToCreatePage}>
+              Add a Platform
+            </button>
+
+            <PlatformList
+              platforms={this.props.platforms}
+              />
+          </section>
+        }
       </div>
     );
   }
