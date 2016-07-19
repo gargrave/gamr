@@ -16,39 +16,40 @@ const buildRecordData = function(record) {
 
 let platformId = 10;
 let mockDate = new Date();
+let timestamp = mockDate.getTime();
 let platforms = {
   '0': {
     '0': {
       name: 'Nintendo 3DS',
-      created: mockDate.getTime(),
-      modified: mockDate.getTime()
+      created: timestamp,
+      modified: timestamp
     },
     '1': {
       name: 'Microsoft Xbox One',
-      created: mockDate.getTime(),
-      modified: mockDate.getTime()
+      created: timestamp,
+      modified: timestamp
     },
     '2': {
       name: 'PC (Win)',
-      created: mockDate.getTime(),
-      modified: mockDate.getTime()
+      created: timestamp,
+      modified: timestamp
     }
   },
   '1': {
     '3': {
       name: 'Nintendo Wii',
-      created: mockDate.getTime(),
-      modified: mockDate.getTime()
+      created: timestamp,
+      modified: timestamp
     },
     '4': {
       name: 'Microsoft Xbox 360',
-      created: mockDate.getTime(),
-      modified: mockDate.getTime()
+      created: timestamp,
+      modified: timestamp
     },
     '5': {
       name: 'PC (Win)',
-      created: mockDate.getTime(),
-      modified: mockDate.getTime()
+      created: timestamp,
+      modified: timestamp
     }
   }
 };
