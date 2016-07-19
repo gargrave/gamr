@@ -15,7 +15,9 @@ class PlatformEditPage extends React.Component {
     super(props, context);
 
     this.state = {
-      platform: Object.assign({}, props.platform),
+      platform: Object.assign({}, props.platform), // working platform data
+      platformCopy: Object.assign({}, props.platform), // unedited, original platform (i.e. for dirty-checking)
+      platformIsDirty: false, // whether the editing platform differs from original
       working: false,
       errors: {},
       apiError: ''
@@ -35,6 +37,20 @@ class PlatformEditPage extends React.Component {
     goto.route(`/platform/${id}`);
   }
 
+  /** Checks if the platform currently has unsaved edits */
+  checkIfplatformIsDirty() {
+    let platformIsDirty = false;
+
+    // compare platform 'name' properties
+    let nameOrig = this.state.platformCopy.name;
+    let nameNew = this.state.platform.name;
+    if (nameNew && nameNew !== nameOrig) {
+      platformIsDirty = true;
+    }
+
+    this.setState({ platformIsDirty });
+  }
+
   /*=============================================
    = event handlers
    =============================================*/
@@ -44,6 +60,7 @@ class PlatformEditPage extends React.Component {
     let platform = this.state.platform;
     platform[propKey] = event.target.value;
     this.setState({ platform });
+    this.checkIfplatformIsDirty();
   }
 
   onSubmit(event) {
@@ -103,10 +120,11 @@ class PlatformEditPage extends React.Component {
         <PlatformForm
           platform={this.state.platform}
           working={this.state.working}
+          errors={this.state.errors}
+          platformIsDirty={this.state.platformIsDirty}
           onChange={this.onChange}
           onSubmit={this.onSubmit}
           onCancel={this.onCancel}
-          errors={this.state.errors}
           />
       </div>
     );

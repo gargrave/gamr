@@ -100,10 +100,11 @@ class PlatformCreatePage extends React.Component {
         <PlatformForm
           platform={this.state.platform}
           working={this.state.working}
+          errors={this.state.errors}
+          platformIsDirty={true}
           onChange={this.onChange}
           onSubmit={this.onSubmit}
           onCancel={this.onCancel}
-          errors={this.state.errors}
           />
       </div>
     );
