@@ -16,8 +16,8 @@ class AccountPage extends React.Component {
 
     let waitingForProfile = !props.profile.name;
     this.state = {
-      profile: Object.assign({}, props.profile), // unedited, original profile (i.e. for dirty-checking)
-      profileCopy: Object.assign({}, props.profile), // profile being edited (when in editing state)
+      profile: Object.assign({}, props.profile), // working profile data
+      profileCopy: Object.assign({}, props.profile), // unedited, original profile (i.e. for dirty-checking)
       profileIsDirty: false, // whether the editing profile differs from original
       working: waitingForProfile, // whether we are processing an AJAX call
       editing: false, // whether we are in editing mode (i.e. or just viewing)
