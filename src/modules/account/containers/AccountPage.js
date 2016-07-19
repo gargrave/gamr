@@ -63,6 +63,7 @@ class AccountPage extends React.Component {
   enterEditingState() {
     this.setState({
       editing: true,
+      profileIsDirty: false,
       profileCopy: Object.assign({}, this.state.profile)
     });
   }
@@ -133,7 +134,10 @@ class AccountPage extends React.Component {
   /** Handler for 'Cancel' button in edit state; leaves editing state. */
   onCancelEdits(event) {
     event.preventDefault();
-    this.setState({ editing: false });
+    this.setState({
+      editing: false,
+      profile: Object.assign({}, this.state.profileCopy)
+    });
   }
 
   /** Handler for 'Logout' button; ends the current session. */
@@ -194,23 +198,13 @@ class AccountPage extends React.Component {
               working={this.state.working}
               user={this.props.user}
               profile={this.state.profile}
+              profileIsDirty={this.state.profileIsDirty}
               errors={this.state.errors}
               apiError={this.state.apiError}
               onChange={this.onChange}
+              onSave={this.onSaveEdits}
+              onCancel={this.onCancelEdits}
               />
-
-            <button
-              onClick={this.onSaveEdits}
-              disabled={this.state.working || !this.state.profileIsDirty}>
-              Save
-            </button>&nbsp;
-
-            <button
-              className="pseudo"
-              onClick={this.onCancelEdits}
-              disabled={this.state.working}>
-              Cancel
-            </button>
           </section>
         }
       </div>
