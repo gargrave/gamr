@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux';
 import toastr from 'toastr';
 import * as actions from '../platformActions';
 
+import {PLATFORM_API} from '../../../constants/env';
 import goto from '../../../utils/goto';
 import apiHelper from '../../../utils/apiHelper';
 import PlatformList from '../components/PlatformList';
@@ -23,6 +24,16 @@ class PlatformDetailPage extends React.Component {
     this.redirectToEditPage = this.redirectToEditPage.bind(this);
   }
 
+  componentWillMount() {
+    // if we have an invalid platform id, redirect back to list page
+    if (!this.props.platform.id) {
+      this.redirectToListPage();
+    }
+  }
+
+  /*=============================================
+   = routing
+   =============================================*/
   redirectToListPage() {
     goto.route('/platform');
   }
@@ -32,24 +43,27 @@ class PlatformDetailPage extends React.Component {
     goto.route(`/platform/${id}/edit`);
   }
 
+  /*=============================================
+   = event handlers
+   =============================================*/
   onDeleteClick(event) {
     event.preventDefault();
 
-    // if (!this.state.working && confirm('Delete this platform?')) {
-    //   this.setState({ working: true });
-    //   this.props.actions.deleteContact(this.props.platform)
-    //     .then(() => {
-    //       this.setState({ working: false });
-    //       toastr.success('platform deleted', 'Success');
-    //       this.redirectToListPage();
-    //     }, err => {
-    //       this.setState({
-    //         working: false,
-    //         apiError: err.message
-    //       });
-    //       toastr.error('Error deleting platform', 'Error');
-    //     });
-    // }
+    if (!this.state.working && confirm('Delete this platform?')) {
+      this.setState({ working: true });
+      this.props.actions.deletePlatform(this.props.platform)
+        .then(() => {
+          this.setState({ working: false });
+          toastr.success('platform deleted', 'Success');
+          this.redirectToListPage();
+        }, err => {
+          this.setState({
+            working: false,
+            apiError: err.message
+          });
+          toastr.error('Error deleting platform', 'Error');
+        });
+    }
   }
 
   render() {
@@ -89,12 +103,12 @@ PlatformDetailPage.propTypes = {
   platform: PropTypes.object.isRequired
 };
 
-/*=============================================
- = Redux setup
- =============================================*/
 function mapStateToProps(state, ownProps) {
   let platformId = ownProps.params.id;
   let platform = apiHelper.findRecordById(state.platforms, platformId);
+  if (!platform) {
+    platform = PLATFORM_API.getNewRecord();
+  }
 
   return {
     platform

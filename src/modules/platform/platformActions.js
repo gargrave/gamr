@@ -55,6 +55,26 @@ function updatePlatformError() {
   };
 }
 
+// delete actions
+function deletePlatformBegin() {
+  return {
+    type: types.DELETE_PLATFORM_BEGIN
+  };
+}
+
+function deletePlatformSuccess(platform) {
+  return {
+    type: types.DELETE_PLATFORM_SUCCESS,
+    platform
+  };
+}
+
+function deletePlatformError() {
+  return {
+    type: types.DELETE_PLATFORM_ERROR
+  };
+}
+
 /*=============================================
  = Thunk Action Creators
  =============================================*/
@@ -87,6 +107,20 @@ export function updatePlatform(platform) {
       })
       .catch(err => {
         dispatch(updatePlatformError());
+        throw (err);
+      });
+  };
+}
+
+export function deletePlatform(platform) {
+  return function(dispatch) {
+    dispatch(deletePlatformBegin());
+    return api.destroyRecord(platform)
+      .then(res => {
+        dispatch(deletePlatformSuccess());
+      })
+      .catch(err => {
+        dispatch(deletePlatformError());
         throw (err);
       });
   };

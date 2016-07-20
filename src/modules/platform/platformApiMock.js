@@ -113,8 +113,24 @@ class PlatformApiMock {
         reject('Not logged in'); // not logged in; reject immediately
       }
     });
+  }
 
+  /** Destroys an existing record from the DB */
+  static destroyRecord(record) {
+    console.log('MOCK PLATFORM API: using mock API -> destroyRecord()');
+    if (auth.isLoggedIn()) {
+      let userPlatforms = platforms[auth.user().uid.toString()];
 
+      if (userPlatforms[record.id]) {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            delete userPlatforms[record.id];
+            this.notifyListeners();
+            resolve();
+          }, MOCK_API_DELAY);
+        });
+      }
+    }
   }
 
   /** Adds a listener to db state change events. */

@@ -76,6 +76,25 @@ class PlatformApi {
     });
   }
 
+  /** Destroys an existing record from the DB */
+  static destroyRecord(record) {
+    return new Promise((resolve, reject) => {
+      if (auth.isLoggedIn()) {
+        let recordUrl = getUrlFor(auth.user(), record);
+
+        recordUrl.remove()
+          .then(function() {
+            resolve();
+          })
+          .catch(function(err) {
+            reject(err);
+          });
+      } else {
+        reject('Not logged in'); // not logged in; reject immediately
+      }
+    });
+  }
+
   /** Adds a listener to db state change events. */
   static addDbListener(callback) {
     currentUserId = auth.user().uid.toString();
