@@ -6,6 +6,8 @@ import HomePage from './modules/common/HomePage';
 import AboutPage from './modules/common/AboutPage.js';
 import NotFoundPage from './modules/common/NotFoundPage.js';
 
+import GameListPage from './modules/game/containers/GameListPage';
+
 import PlatformListPage from './modules/platform/containers/PlatformListPage';
 import PlatformDetailPage from './modules/platform/containers/PlatformDetailPage';
 import PlatformCreatePage from './modules/platform/containers/PlatformCreatePage';
@@ -19,6 +21,8 @@ import CreateAccountPage from './modules/account/containers/CreateAccountPage';
 export default (
   <Route path="/" component={App}>
     <IndexRoute component={HomePage}/>
+
+    <Route path="game" component={GameListPage}/>
 
     <Route path="platform" component={PlatformListPage}/>
     <Route path="platform/new" component={PlatformCreatePage}/>

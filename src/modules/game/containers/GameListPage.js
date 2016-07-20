@@ -3,12 +3,12 @@ import {browserHistory, Link} from 'react-router';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import * as actions from '../platformActions';
+import * as actions from '../gameActions';
 import goto from '../../../utils/goto';
-import PlatformList from '../components/PlatformList';
+import GameList from '../components/GameList';
 
 
-class PlatformListPage extends React.Component {
+class GameListPage extends React.Component {
   constructor(props, context) {
     super(props, context);
 
@@ -16,7 +16,7 @@ class PlatformListPage extends React.Component {
   }
 
   redirectToCreatePage() {
-    goto.route('/platform/new');
+    goto.route('/game/new');
   }
 
   /*=============================================
@@ -26,11 +26,11 @@ class PlatformListPage extends React.Component {
     const {loggedIn} = this.props;
     return (
       <div>
-        <h2>Platforms</h2>
+        <h2>Games</h2>
 
         {!loggedIn &&
           <section>
-            <h4>You are not logged in. Visit the <Link to="/account">Account Page</Link> to log in.</h4>
+            <h4>You are not logged in.Visit the <Link to="/account">Account Page</Link> to log in.</h4>
           </section>
         }
 
@@ -39,11 +39,11 @@ class PlatformListPage extends React.Component {
             <button
               className="button success"
               onClick={this.redirectToCreatePage}>
-              Add a Platform
+              Add a Game
             </button>
 
-            <PlatformList
-              platforms={this.props.platforms}
+            <GameList
+              games={this.props.games}
               />
           </section>
         }
@@ -52,17 +52,17 @@ class PlatformListPage extends React.Component {
   }
 }
 
-PlatformListPage.propTypes = {
+GameListPage.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,
-  platforms: PropTypes.array.isRequired
+  games: PropTypes.array.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
   return {
     loggedIn: !!state.user.email,
     user: state.user,
-    platforms: state.platforms
+    games: state.games
   };
 }
 
@@ -72,4 +72,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlatformListPage);
+export default connect(mapStateToProps, mapDispatchToProps)(GameListPage);

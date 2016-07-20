@@ -4,5 +4,6 @@ export default {
   api: {
     authApiWorking: false
   },
-  platforms: []
+  platforms: [],
+  games: []
 };

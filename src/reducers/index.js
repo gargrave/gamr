@@ -5,6 +5,7 @@ import api from './apiReducer';
 import user from './authReducer';
 import profile from './profileReducer';
 import platforms from './platformReducer';
+import games from './gameReducer';
 
 
 const rootReducer = combineReducers({
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   user,
   profile,
   platforms,
+  games,
   routing: routerReducer
 });
 
