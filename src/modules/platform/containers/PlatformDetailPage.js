@@ -54,7 +54,7 @@ class PlatformDetailPage extends React.Component {
       this.props.actions.deletePlatform(this.props.platform)
         .then(() => {
           this.setState({ working: false });
-          toastr.success('platform deleted', 'Success');
+          toastr.success('Platform deleted', 'Success');
           this.redirectToListPage();
         }, err => {
           this.setState({

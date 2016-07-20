@@ -50,7 +50,7 @@ class PlatformCreatePage extends React.Component {
       this.props.actions.createPlatform(this.state.platform)
         .then(res => {
           this.setState({ working: false });
-          toastr.success('platform created', 'Success');
+          toastr.success('Platform created', 'Success');
           this.redirectToListPage();
         }, err => {
           this.setState({
