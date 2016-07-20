@@ -24,6 +24,7 @@ class GameEditPage extends React.Component {
     };
 
     this.onChange = this.onChange.bind(this);
+    this.onCheckChange = this.onCheckChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onCancel = this.onCancel.bind(this);
   }
@@ -48,6 +49,13 @@ class GameEditPage extends React.Component {
       gameIsDirty = true;
     }
 
+    // compare game 'finished' properties
+    let finishedOrig = this.state.gameCopy.finished;
+    let finishedNew = this.state.game.finished;
+    if (finishedNew && finishedNew !== finishedOrig) {
+      gameIsDirty = true;
+    }
+
     this.setState({ gameIsDirty });
   }
 
@@ -59,6 +67,14 @@ class GameEditPage extends React.Component {
     let propKey = event.target.name;
     let game = this.state.game;
     game[propKey] = event.target.value;
+    this.setState({ game });
+    this.checkIfgameIsDirty();
+  }
+
+  onCheckChange(event) {
+    let propKey = event.target.name;
+    let game = this.state.game;
+    game[propKey] = event.target.checked;
     this.setState({ game });
     this.checkIfgameIsDirty();
   }
@@ -123,6 +139,7 @@ class GameEditPage extends React.Component {
           errors={this.state.errors}
           gameIsDirty={this.state.gameIsDirty}
           onChange={this.onChange}
+          onCheckChange={this.onCheckChange}
           onSubmit={this.onSubmit}
           onCancel={this.onCancel}
           />

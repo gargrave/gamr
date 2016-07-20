@@ -9,6 +9,7 @@ const buildRecordData = function(record) {
   let dateNow = new Date();
   return {
     name: record.name.trim(),
+    finished: record.finished,
     created: dateNow.getTime(),
     modified: dateNow.getTime()
   };
@@ -21,16 +22,19 @@ let games = {
   '0': {
     '0': {
       name: 'Starcraft 2',
+      finished: true,
       created: timestamp,
       modified: timestamp
     },
     '1': {
       name: 'Heroes of the Storm',
+      finished: false,
       created: timestamp,
       modified: timestamp
     },
     '2': {
       name: 'Diablo 3',
+      finished: true,
       created: timestamp,
       modified: timestamp
     }
@@ -38,16 +42,19 @@ let games = {
   '1': {
     '3': {
       name: 'Fallout 4',
+      finished: true,
       created: timestamp,
       modified: timestamp
     },
     '4': {
       name: 'Starcraft 2',
+      finished: false,
       created: timestamp,
       modified: timestamp
     },
     '5': {
       name: 'Overwatch',
+      finished: false,
       created: timestamp,
       modified: timestamp
     }
@@ -63,6 +70,7 @@ class GameApiMock {
     let dateNow = new Date();
     return {
       name: '',
+      finished: false,
       created: dateNow.getTime(),
       modified: dateNow.getTime()
     };

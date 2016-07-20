@@ -4,7 +4,7 @@ import TextInput from '../../common/components/TextInput';
 
 
 const GameForm = ({game, working, errors, gameIsDirty,
-  onChange, onSubmit, onCancel}) => {
+  onChange, onCheckChange, onSubmit, onCancel}) => {
   return (
     <form>
       <TextInput
@@ -15,6 +15,17 @@ const GameForm = ({game, working, errors, gameIsDirty,
         onChange={onChange}
         error={errors.name}
         />
+
+      <label>
+        <input
+          type="checkbox"
+          name="finished"
+          defaultChecked={game.finished}
+          onChange={onCheckChange}
+          />
+        <span className="checkable">Finished</span>
+      </label>
+      <br/>
 
       <input
         type="submit"
@@ -41,6 +52,7 @@ GameForm.propTypes = {
   errors: PropTypes.object.isRequired,
   gameIsDirty: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
+  onCheckChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired
 };

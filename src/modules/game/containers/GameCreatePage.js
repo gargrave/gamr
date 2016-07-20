@@ -22,6 +22,7 @@ class GameCreatePage extends React.Component {
     };
 
     this.onChange = this.onChange.bind(this);
+    this.onCheckChange = this.onCheckChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onCancel = this.onCancel.bind(this);
   }
@@ -35,10 +36,16 @@ class GameCreatePage extends React.Component {
    =============================================*/
   onChange(event) {
     event.preventDefault();
-
     let propKey = event.target.name;
     let game = this.state.game;
     game[propKey] = event.target.value;
+    this.setState({ game });
+  }
+
+  onCheckChange(event) {
+    let propKey = event.target.name;
+    let game = this.state.game;
+    game[propKey] = event.target.checked;
     this.setState({ game });
   }
 
@@ -103,6 +110,7 @@ class GameCreatePage extends React.Component {
           errors={this.state.errors}
           gameIsDirty={true}
           onChange={this.onChange}
+          onCheckChange={this.onCheckChange}
           onSubmit={this.onSubmit}
           onCancel={this.onCancel}
           />
