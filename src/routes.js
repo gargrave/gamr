@@ -7,6 +7,9 @@ import AboutPage from './modules/common/AboutPage.js';
 import NotFoundPage from './modules/common/NotFoundPage.js';
 
 import GameListPage from './modules/game/containers/GameListPage';
+import GameCreatePage from './modules/game/containers/GameCreatePage';
+import GameDetailPage from './modules/game/containers/GameDetailPage';
+import GameEditPage from './modules/game/containers/GameEditPage';
 
 import PlatformListPage from './modules/platform/containers/PlatformListPage';
 import PlatformDetailPage from './modules/platform/containers/PlatformDetailPage';
@@ -23,6 +26,9 @@ export default (
     <IndexRoute component={HomePage}/>
 
     <Route path="game" component={GameListPage}/>
+    <Route path="game/new" component={GameCreatePage}/>
+    <Route path="game/:id" component={GameDetailPage}/>
+    <Route path="game/:id/edit" component={GameEditPage}/>
 
     <Route path="platform" component={PlatformListPage}/>
     <Route path="platform/new" component={PlatformCreatePage}/>
