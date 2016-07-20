@@ -8,7 +8,7 @@ const ProfileForm = ({working, user, profile, profileIsDirty,
   errors, apiError, onChange, onSave, onCancel}) => {
   return (
     <div>
-      <h1>Update Profile</h1>
+      <h2>Update Profile</h2>
 
       {apiError &&
         <div className="alert alert-danger">Error: {apiError}</div>

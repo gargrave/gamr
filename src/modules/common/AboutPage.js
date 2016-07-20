@@ -6,7 +6,7 @@ import {APP_TITLE} from '../../constants/appConfig';
 const AboutPage = () => {
   return (
     <div>
-      <h1>About {APP_TITLE}</h1>
+      <h2>About {APP_TITLE}</h2>
     </div>
   );
 };

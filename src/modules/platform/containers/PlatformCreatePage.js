@@ -91,7 +91,7 @@ class PlatformCreatePage extends React.Component {
     let {apiError} = this.state;
     return (
       <div>
-        <h2>Add New platform</h2>
+        <h2>Add a Platform</h2>
 
         {apiError &&
           <div className="alert alert-danger">Error: {apiError}</div>

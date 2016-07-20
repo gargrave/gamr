@@ -30,7 +30,7 @@ class GameListPage extends React.Component {
 
         {!loggedIn &&
           <section>
-            <h4>You are not logged in.Visit the <Link to="/account">Account Page</Link> to log in.</h4>
+            <h4>You are not logged in. Visit the <Link to="/account">Account Page</Link> to log in.</h4>
           </section>
         }
 

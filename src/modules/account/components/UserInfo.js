@@ -4,7 +4,7 @@ import React, {PropTypes} from 'react';
 const UserInfo = ({user, profile}) => {
   return (
     <div>
-      <h1>{user.email}</h1>
+      <h2>{user.email}</h2>
       <hr/>
       <ul>
         <li>
