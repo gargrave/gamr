@@ -9,6 +9,7 @@ const buildRecordData = function(record) {
   let dateNow = new Date();
   return {
     name: record.name.trim(),
+    dates: record.dates || [],
     finished: record.finished,
     created: dateNow.getTime(),
     modified: dateNow.getTime()
@@ -22,65 +23,66 @@ let games = {
   '0': {
     '0': {
       name: 'Starcraft 2',
-      finished: true,
-      created: timestamp,
-      modified: timestamp,
       dates: [
         1469923200000,
-        1469750400000
-      ]
+        1469750400000,
+        1468540800000
+      ],
+      finished: true,
+      created: timestamp,
+      modified: timestamp
     },
     '1': {
       name: 'Heroes of the Storm',
-      finished: false,
-      created: timestamp,
-      modified: timestamp,
       dates: [
         1469923200000,
         1469750400000
-      ]
+      ],
+      finished: false,
+      created: timestamp,
+      modified: timestamp
     },
     '2': {
       name: 'Diablo 3',
-      finished: true,
-      created: timestamp,
-      modified: timestamp,
       dates: [
         1469923200000,
         1469750400000
-      ]
+      ],
+      finished: true,
+      created: timestamp,
+      modified: timestamp
     }
   },
   '1': {
     '3': {
       name: 'Fallout 4',
-      finished: true,
-      created: timestamp,
-      modified: timestamp,
       dates: [
         1469923200000,
         1469750400000
-      ]
+      ],
+      finished: true,
+      created: timestamp,
+      modified: timestamp
     },
     '4': {
       name: 'Starcraft 2',
-      finished: false,
-      created: timestamp,
-      modified: timestamp,
       dates: [
         1469923200000,
         1469750400000
-      ]
+      ],
+      finished: false,
+      created: timestamp,
+      modified: timestamp
     },
     '5': {
       name: 'Overwatch',
-      finished: false,
-      created: timestamp,
-      modified: timestamp,
       dates: [
         1469923200000,
         1469750400000
-      ]
+      ],
+      finished: false,
+      created: timestamp,
+      modified: timestamp
     }
   }
 };
@@ -94,6 +96,7 @@ class GameApiMock {
     let dateNow = new Date();
     return {
       name: '',
+      dates: [],
       finished: false,
       created: dateNow.getTime(),
       modified: dateNow.getTime()
@@ -105,15 +108,17 @@ class GameApiMock {
     console.log('MOCK GAME API: using mock API -> createRecord()');
     return new Promise((resolve, reject) => {
       if (auth.isLoggedIn()) {
-        let userId = auth.user().uid.toString();
-        let userGames = games[userId];
+        setTimeout(() => {
+          let userId = auth.user().uid.toString();
+          let userGames = games[userId];
 
-        let id = (gameId++).toString();
-        let game = buildRecordData(record);
-        userGames[id] = game;
+          let id = (gameId++).toString();
+          let game = buildRecordData(record);
+          userGames[id] = game;
 
-        this.notifyListeners();
-        resolve(game);
+          this.notifyListeners();
+          resolve(game);
+        }, MOCK_API_DELAY);
       } else {
         reject('Not logged in'); // not logged in; reject immediately
       }
