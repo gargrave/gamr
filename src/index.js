@@ -7,8 +7,8 @@ import routes from './routes';
 import configureStore from './store/configureStore';
 
 require('./favicon.ico');
-import './styles/libs/picnic.min.css';
-import './styles/libs/toastr.min.css';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import '../node_modules/toastr/build/toastr.min.css';
 import './styles/styles.scss';
 import { syncHistoryWithStore } from 'react-router-redux';
 
