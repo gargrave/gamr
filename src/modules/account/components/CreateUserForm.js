@@ -8,7 +8,8 @@ import PasswordInput from '../../common/components/PasswordInput';
 const LoginForm = ({working, user, onChange, onSubmit, errors, apiError}) => {
   return (
     <div>
-      <h2>Create an Account</h2>
+      <h3>Create an Account</h3>
+      <hr/>
 
       {apiError &&
         <div className="alert alert-danger">{apiError}</div>
@@ -59,6 +60,7 @@ const LoginForm = ({working, user, onChange, onSubmit, errors, apiError}) => {
           disabled={working}
           />&nbsp;
       </form>
+      <hr/>
 
       <Link to="/account/login">Existing users click here</Link>
     </div>
