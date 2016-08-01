@@ -82,13 +82,18 @@ class GameDetailPage extends React.Component {
         <p><strong>Finished: </strong>{game.finished.toString()}</p>
 
         <button
+          className="btn btn-success"
           disabled={working}
           onClick={this.redirectToEditPage}>
           Edit
         </button>&nbsp;
 
         {!working &&
-          <button className="pseudo" onClick={this.redirectToListPage}>Back</button>
+          <button
+            className="btn btn-default"
+            onClick={this.redirectToListPage}>
+            Back
+          </button>
         }
 
         <p>

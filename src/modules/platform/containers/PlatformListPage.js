@@ -37,7 +37,7 @@ class PlatformListPage extends React.Component {
         {loggedIn &&
           <section>
             <button
-              className="button success"
+              className="btn btn-success"
               onClick={this.redirectToCreatePage}>
               Add a Platform
             </button>

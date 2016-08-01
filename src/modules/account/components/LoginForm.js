@@ -36,7 +36,7 @@ const LoginForm = ({working, user, onChange, onSubmit, errors, apiError}) => {
         <input
           type="submit"
           value="Submit"
-          className="button"
+          className="btn btn-primary"
           onClick={onSubmit}
           disabled={working}
           />&nbsp;

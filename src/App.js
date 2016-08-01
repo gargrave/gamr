@@ -12,12 +12,16 @@ const App = (props) => {
       <Navbar />
       <div className="flex container">
 
-        <div className="none fifth-1000">
-          <SideNav />
+        <div className="col-md-3">
+          <div className="row">
+            <SideNav />
+          </div>
         </div>
 
-        <main className="full three-fifth-1000">
-          {props.children}
+        <main className="col-md-9">
+          <div className="row">
+            {props.children}
+          </div>
         </main>
 
         <div className="fifth"></div>

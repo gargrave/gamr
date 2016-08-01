@@ -26,14 +26,14 @@ const ProfileForm = ({working, user, profile, profileIsDirty,
         <input
           type="submit"
           value="Submit"
-          className="button"
+          className="btn btn-success"
           onClick={onSave}
           disabled={working || !profileIsDirty}
           />&nbsp;
 
         {!working &&
           <button
-            className="pseudo"
+            className="btn btn-default"
             onClick={onCancel}
             disabled={working}>
             Cancel

@@ -11,21 +11,23 @@ const PlatformForm = ({platform, working, errors, platformIsDirty,
         label="Platform Name"
         name="name"
         value={platform.name}
-        placeholder="First Name"
+        placeholder="Platform Name"
         onChange={onChange}
         error={errors.name}
         />
 
+      <hr/>
       <input
         type="submit"
         value="Submit"
+        className="btn btn-success"
         disabled={working || !platformIsDirty}
         onClick={onSubmit}
         />&nbsp;
 
       {!working &&
         <button
-          className="button pseudo"
+          className="btn btn-default"
           disabled={working}
           onClick={onCancel}
           >Cancel

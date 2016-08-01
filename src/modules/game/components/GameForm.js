@@ -17,7 +17,6 @@ const GameForm = ({game, working, errors, gameIsDirty,
         onChange={onChange}
         error={errors.name}
         />
-      <hr/>
 
       {/* list of dates for this game
       <GameDatesList
@@ -26,27 +25,29 @@ const GameForm = ({game, working, errors, gameIsDirty,
       <hr/>*/}
 
       {/* 'finished' checkbox */}
-      <label>
-        <input
-          type="checkbox"
-          name="finished"
-          defaultChecked={game.finished}
-          onChange={onCheckChange}
-          />
-        <span className="checkable">Finished</span>
-      </label>
-      <hr/>
+      <div className="checkbox">
+        <label>
+          <input
+            type="checkbox"
+            name="finished"
+            defaultChecked={game.finished}
+            onChange={onCheckChange}
+            /> Finished
+        </label>
+      </div>
 
+      <hr/>
       <input
         type="submit"
         value="Submit"
+        className="btn btn-success"
         disabled={working || !gameIsDirty}
         onClick={onSubmit}
         />&nbsp;
 
       {!working &&
         <button
-          className="button pseudo"
+          className="btn btn-default"
           disabled={working}
           onClick={onCancel}
           >Cancel

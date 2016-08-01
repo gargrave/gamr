@@ -81,13 +81,18 @@ class PlatformDetailPage extends React.Component {
         </p>
 
         <button
+          className="btn btn-success"
           disabled={working}
           onClick={this.redirectToEditPage}>
           Edit
         </button>&nbsp;
 
         {!working &&
-          <button className="pseudo" onClick={this.redirectToListPage}>Back</button>
+          <button
+            className="btn btn-default"
+            onClick={this.redirectToListPage}>
+            Back
+          </button>
         }
 
         <p>

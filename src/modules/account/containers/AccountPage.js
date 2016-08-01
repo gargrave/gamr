@@ -171,13 +171,14 @@ class AccountPage extends React.Component {
               />
 
             <button
-              className="success"
+              className="btn btn-primary"
               onClick={this.onUpdateClick}
               disabled={this.state.working}>
               Update
             </button>&nbsp;
 
             <button
+              className="btn btn-default"
               onClick={this.onSignout}
               disabled={this.state.working}>
               Logout

@@ -8,6 +8,7 @@ const TextInput = ({label, value, placeholder, name, onChange, error}) => {
       {!!error && <span className="error-msg">{error}</span>}
       <input
         type="password"
+        className="form-control"
         placeholder={placeholder}
         name={name}
         value={value}
