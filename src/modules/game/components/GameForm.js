@@ -1,21 +1,31 @@
 import React, {PropTypes} from 'react';
 
 import TextInput from '../../common/components/TextInput';
+import GameDatesList from './GameDatesList';
 
 
 const GameForm = ({game, working, errors, gameIsDirty,
   onChange, onCheckChange, onSubmit, onCancel}) => {
   return (
     <form>
+      {/* game title input */}
       <TextInput
-        label="Game Name"
+        label="Name"
         name="name"
         value={game.name}
         placeholder="First Name"
         onChange={onChange}
         error={errors.name}
         />
+      <hr/>
 
+      {/* list of dates for this game
+      <GameDatesList
+        dates={game.dates}
+        />
+      <hr/>*/}
+
+      {/* 'finished' checkbox */}
       <label>
         <input
           type="checkbox"
@@ -25,7 +35,7 @@ const GameForm = ({game, working, errors, gameIsDirty,
           />
         <span className="checkable">Finished</span>
       </label>
-      <br/>
+      <hr/>
 
       <input
         type="submit"

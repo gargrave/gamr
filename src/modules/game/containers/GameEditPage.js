@@ -52,7 +52,7 @@ class GameEditPage extends React.Component {
     // compare game 'finished' properties
     let finishedOrig = this.state.gameCopy.finished;
     let finishedNew = this.state.game.finished;
-    if (finishedNew && finishedNew !== finishedOrig) {
+    if (finishedNew !== finishedOrig) {
       gameIsDirty = true;
     }
 

@@ -76,9 +76,10 @@ class GameDetailPage extends React.Component {
           <div className="alert alert-danger">Error: {apiError}</div>
         }
 
-        <p>
-          <strong>Name: </strong>{game.name}
-        </p>
+        <p><strong>Name: </strong>{game.name}</p>
+        <p><strong>Times played: </strong>{game.dates.length}</p>
+        <p><strong>Last played: </strong>{game.dates[0]}</p>
+        <p><strong>Finished: </strong>{game.finished.toString()}</p>
 
         <button
           disabled={working}

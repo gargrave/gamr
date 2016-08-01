@@ -24,19 +24,31 @@ let games = {
       name: 'Starcraft 2',
       finished: true,
       created: timestamp,
-      modified: timestamp
+      modified: timestamp,
+      dates: [
+        1469923200000,
+        1469750400000
+      ]
     },
     '1': {
       name: 'Heroes of the Storm',
       finished: false,
       created: timestamp,
-      modified: timestamp
+      modified: timestamp,
+      dates: [
+        1469923200000,
+        1469750400000
+      ]
     },
     '2': {
       name: 'Diablo 3',
       finished: true,
       created: timestamp,
-      modified: timestamp
+      modified: timestamp,
+      dates: [
+        1469923200000,
+        1469750400000
+      ]
     }
   },
   '1': {
@@ -44,19 +56,31 @@ let games = {
       name: 'Fallout 4',
       finished: true,
       created: timestamp,
-      modified: timestamp
+      modified: timestamp,
+      dates: [
+        1469923200000,
+        1469750400000
+      ]
     },
     '4': {
       name: 'Starcraft 2',
       finished: false,
       created: timestamp,
-      modified: timestamp
+      modified: timestamp,
+      dates: [
+        1469923200000,
+        1469750400000
+      ]
     },
     '5': {
       name: 'Overwatch',
       finished: false,
       created: timestamp,
-      modified: timestamp
+      modified: timestamp,
+      dates: [
+        1469923200000,
+        1469750400000
+      ]
     }
   }
 };
