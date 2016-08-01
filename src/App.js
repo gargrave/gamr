@@ -1,37 +1,59 @@
 import React, {PropTypes} from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import bootstrap from 'bootstrap';
 
 import FirebaseContainer from './modules/firebase/FirebaseContainer';
 import Navbar from './modules/layout/components/Navbar';
 import SideNav from './modules/layout/components/SideNav';
 
 
-const App = (props) => {
-  return (
-    <div>
-      <FirebaseContainer />
-      <Navbar />
-      <div className="flex container">
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <FirebaseContainer />
+        <Navbar
+          location={this.props.location}
+          user={this.props.user}
+          />
 
-        <div className="col-md-3">
-          <div className="row">
-            <SideNav />
-          </div>
+        <div className="container">
+
+          <aside className="col-md-2 col-md-offset-1 hidden-sm hidden-xs">
+            <div className="row">
+              <h4>Navigation</h4>
+              <SideNav location={this.props.location} />
+            </div>
+          </aside>
+
+          <main className="col-md-8">
+            <div className="row">
+              {this.props.children}
+            </div>
+          </main>
+
         </div>
-
-        <main className="col-md-9">
-          <div className="row">
-            {props.children}
-          </div>
-        </main>
-
-        <div className="fifth"></div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 App.propTypes = {
-  children: PropTypes.element
+  children: PropTypes.element,
+  location: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired
 };
 
-export default App;
+function mapStateToProps(state, ownProps) {
+  return {
+    user: state.user
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

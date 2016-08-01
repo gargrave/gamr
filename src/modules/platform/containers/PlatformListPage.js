@@ -26,7 +26,13 @@ class PlatformListPage extends React.Component {
     const {loggedIn} = this.props;
     return (
       <div>
-        <h2>Platforms</h2>
+        <h2>Platforms&nbsp;
+          <button
+            className="btn btn-success"
+            onClick={this.redirectToCreatePage}>
+            Add a Platform
+          </button>
+        </h2>
 
         {!loggedIn &&
           <section>
@@ -35,17 +41,7 @@ class PlatformListPage extends React.Component {
         }
 
         {loggedIn &&
-          <section>
-            <button
-              className="btn btn-success"
-              onClick={this.redirectToCreatePage}>
-              Add a Platform
-            </button>
-
-            <PlatformList
-              platforms={this.props.platforms}
-              />
-          </section>
+          <PlatformList platforms={this.props.platforms} />
         }
       </div>
     );

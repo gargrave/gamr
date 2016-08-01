@@ -6,7 +6,7 @@ import GameDetail from './GameDetail';
 const GameList = ({games}) => {
   let count = games.length;
   return (
-    <div>
+    <div className="list-group">
       {/* message shown when user has no games */}
       {!count &&
         <h4>You have not added any games yet.</h4>

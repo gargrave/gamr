@@ -6,7 +6,7 @@ import PlatformDetail from './PlatformDetail';
 const PlatformList = ({platforms}) => {
   let count = platforms.length;
   return (
-    <div>
+    <div className="list-group">
       {/* message shown when user has no platforms */}
       {!count &&
         <h4>You have not added any platforms yet.</h4>

@@ -26,7 +26,13 @@ class GameListPage extends React.Component {
     const {loggedIn} = this.props;
     return (
       <div>
-        <h2>Games</h2>
+        <h2>Games &nbsp;
+          <button
+            className="btn btn-success"
+            onClick={this.redirectToCreatePage}>
+            Add a Game
+          </button>
+        </h2>
 
         {!loggedIn &&
           <section>
@@ -35,17 +41,7 @@ class GameListPage extends React.Component {
         }
 
         {loggedIn &&
-          <section>
-            <button
-              className="btn btn-success"
-              onClick={this.redirectToCreatePage}>
-              Add a Game
-            </button>
-
-            <GameList
-              games={this.props.games}
-              />
-          </section>
+          <GameList games={this.props.games} />
         }
       </div>
     );
