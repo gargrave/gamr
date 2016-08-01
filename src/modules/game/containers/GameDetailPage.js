@@ -70,17 +70,27 @@ class GameDetailPage extends React.Component {
     const {game, working, apiError} = this.state;
     return (
       <div>
-        <h2>Game Detail</h2>
+        <h3>{game.name}</h3>
+        <hr/>
 
         {apiError &&
           <div className="alert alert-danger">Error: {apiError}</div>
         }
 
-        <p><strong>Name: </strong>{game.name}</p>
-        <p><strong>Times played: </strong>{game.dates.length}</p>
-        <p><strong>Last played: </strong>{game.dates[0]}</p>
-        <p><strong>Finished: </strong>{game.finished.toString()}</p>
+        {/* game details */}
+        <ul className="list-group">
+          <li className="list-group-item">
+            <strong>Times played: </strong>{game.dates.length}
+          </li>
+          <li className="list-group-item">
+            <strong>Last played: </strong>{game.dates[0]}
+          </li>
+          <li className="list-group-item">
+            <strong>Finished: </strong>{game.finished.toString()}
+          </li>
+        </ul>
 
+        {/* 'edit game' button */}
         <button
           className="btn btn-success"
           disabled={working}
@@ -95,6 +105,7 @@ class GameDetailPage extends React.Component {
             Back
           </button>
         }
+        <hr/>
 
         <p>
           <a href="" onClick={this.onDeleteClick}>Delete this game</a>

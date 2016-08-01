@@ -26,13 +26,14 @@ class PlatformListPage extends React.Component {
     const {loggedIn} = this.props;
     return (
       <div>
-        <h2>Platforms&nbsp;
+        <h3>Platforms&nbsp;
           <button
             className="btn btn-success"
             onClick={this.redirectToCreatePage}>
             Add a Platform
           </button>
-        </h2>
+        </h3>
+        <hr/>
 
         {!loggedIn &&
           <section>

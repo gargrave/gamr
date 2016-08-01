@@ -111,7 +111,8 @@ class PlatformEditPage extends React.Component {
     let {apiError} = this.state;
     return (
       <div>
-        <h2>Edit Platform: {this.props.platform.name}</h2>
+        <h3>Edit Platform: {this.props.platform.name}</h3>
+        <hr/>
 
         {apiError &&
           <div className="alert alert-danger">Error: {apiError}</div>

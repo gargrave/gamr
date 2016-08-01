@@ -10,10 +10,10 @@ const GameForm = ({game, working, errors, gameIsDirty,
     <form>
       {/* game title input */}
       <TextInput
-        label="Name"
+        label="Title"
         name="name"
         value={game.name}
-        placeholder="First Name"
+        placeholder="Game Title"
         onChange={onChange}
         error={errors.name}
         />
@@ -36,7 +36,6 @@ const GameForm = ({game, working, errors, gameIsDirty,
         </label>
       </div>
 
-      <hr/>
       <input
         type="submit"
         value="Submit"

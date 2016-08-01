@@ -73,15 +73,17 @@ class PlatformApiMock {
     console.log('MOCK PLATFORM API: using mock API -> createRecord()');
     return new Promise((resolve, reject) => {
       if (auth.isLoggedIn()) {
-        let userId = auth.user().uid.toString();
-        let userPlatforms = platforms[userId];
+        setTimeout(() => {
+          let userId = auth.user().uid.toString();
+          let userPlatforms = platforms[userId];
 
-        let id = (platformId++).toString();
-        let platform = buildRecordData(record);
-        userPlatforms[id] = platform;
+          let id = (platformId++).toString();
+          let platform = buildRecordData(record);
+          userPlatforms[id] = platform;
 
-        this.notifyListeners();
-        resolve(platform);
+          this.notifyListeners();
+          resolve(platform);
+        }, MOCK_API_DELAY);
       } else {
         reject('Not logged in'); // not logged in; reject immediately
       }

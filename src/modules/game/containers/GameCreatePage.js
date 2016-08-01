@@ -98,7 +98,8 @@ class GameCreatePage extends React.Component {
     let {apiError} = this.state;
     return (
       <div>
-        <h2>Add a Game</h2>
+        <h3>Add a Game</h3>
+        <hr/>
 
         {apiError &&
           <div className="alert alert-danger">Error: {apiError}</div>

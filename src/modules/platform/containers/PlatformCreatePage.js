@@ -91,7 +91,8 @@ class PlatformCreatePage extends React.Component {
     let {apiError} = this.state;
     return (
       <div>
-        <h2>Add a Platform</h2>
+        <h3>Add a Platform</h3>
+        <hr/>
 
         {apiError &&
           <div className="alert alert-danger">Error: {apiError}</div>
@@ -116,9 +117,6 @@ PlatformCreatePage.propTypes = {
   platform: PropTypes.object.isRequired
 };
 
-/*=============================================
- = Redux setup
- =============================================*/
 function mapStateToProps(state, ownProps) {
   return {
     platform: api.getNewRecord()

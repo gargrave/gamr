@@ -26,13 +26,14 @@ class GameListPage extends React.Component {
     const {loggedIn} = this.props;
     return (
       <div>
-        <h2>Games &nbsp;
+        <h3>Games &nbsp;
           <button
             className="btn btn-success"
             onClick={this.redirectToCreatePage}>
             Add a Game
           </button>
-        </h2>
+        </h3>
+        <hr/>
 
         {!loggedIn &&
           <section>

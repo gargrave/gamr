@@ -70,15 +70,18 @@ class PlatformDetailPage extends React.Component {
     const {platform, working, apiError} = this.state;
     return (
       <div>
-        <h2>Platform Detail</h2>
+        <h3>{platform.name}</h3>
+        <hr/>
 
         {apiError &&
           <div className="alert alert-danger">Error: {apiError}</div>
         }
 
-        <p>
-          <strong>Name: </strong>{platform.name}
-        </p>
+        <div className="panel panel-default">
+          <div className="panel-body">
+            Yes! Platform info will go here!
+          </div>
+        </div>
 
         <button
           className="btn btn-success"
@@ -94,6 +97,7 @@ class PlatformDetailPage extends React.Component {
             Back
           </button>
         }
+        <hr/>
 
         <p>
           <a href="" onClick={this.onDeleteClick}>Delete this platform</a>

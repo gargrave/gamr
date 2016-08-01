@@ -127,7 +127,8 @@ class GameEditPage extends React.Component {
     let {apiError} = this.state;
     return (
       <div>
-        <h2>Edit Game: {this.props.game.name}</h2>
+        <h3>Edit Game: {this.props.game.name}</h3>
+        <hr/>
 
         {apiError &&
           <div className="alert alert-danger">Error: {apiError}</div>

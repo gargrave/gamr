@@ -16,7 +16,6 @@ const PlatformForm = ({platform, working, errors, platformIsDirty,
         error={errors.name}
         />
 
-      <hr/>
       <input
         type="submit"
         value="Submit"
