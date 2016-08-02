@@ -8,6 +8,7 @@ import {GAME_API} from '../../../constants/env';
 import goto from '../../../utils/goto';
 import apiHelper from '../../../utils/apiHelper';
 import GameList from '../components/GameList';
+import GameDatesList from '../components/GameDatesList';
 
 
 class GameDetailPage extends React.Component {
@@ -79,14 +80,12 @@ class GameDetailPage extends React.Component {
 
         {/* game details */}
         <ul className="list-group">
-          <li className="list-group-item">
-            <strong>Times played: </strong>{game.dates.length}
-          </li>
+          <GameDatesList dates={game.dates} />
           <li className="list-group-item">
             <strong>Last played: </strong>{game.dates[0]}
           </li>
           <li className="list-group-item">
-            <strong>Finished: </strong>{game.finished.toString()}
+            <strong>Finished: </strong>{game.finished.toString() }
           </li>
         </ul>
 

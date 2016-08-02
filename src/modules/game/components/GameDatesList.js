@@ -6,45 +6,54 @@ class GameDatesList extends React.Component {
     super(props, context);
 
     this.state = {
-      toggleText: "Show",
-      showTable: false
+      showDates: false,
+      toggleDatesText: 'Show'
     };
 
-    this.toggleEditor = this.toggleEditor.bind(this);
+    this.onToggleDatesClick = this.onToggleDatesClick.bind(this);
   }
 
-  toggleEditor() {
+  /*=============================================
+   = event handlers
+   =============================================*/
+  onToggleDatesClick(event) {
+    event.preventDefault();
+
+    let showDates = !this.state.showDates;
+    let toggleDatesText = showDates ? 'Hide' : 'Show';
     this.setState({
-      toggleText: this.state.showTable ? "Show" : "Hide",
-      showTable: !this.state.showTable
+      showDates,
+      toggleDatesText
     });
   }
 
+  /*=============================================
+   = render
+   =============================================*/
   render() {
     const {dates} = this.props;
-    const {toggleText, showTable} = this.state;
+    const {showDates, toggleDatesText} = this.state;
 
     return (
-      <div>
-        <strong>Dates <small>({dates.length} existing, 0 new) </small></strong>
-        <span
-          className="button success"
-          onClick={this.toggleEditor}>{toggleText}</span>
+      <li className="list-group-item">
+        <strong>Dates played: </strong>{dates.length}
+        <button
+          className="btn btn-xs btn-primary pull-right"
+          onClick={this.onToggleDatesClick}
+          >{toggleDatesText}
+        </button>
 
-        {showTable &&
+        {this.state.showDates &&
           <section>
-            <table>
-              <tbody>
-                {dates.map((d, i) =>
-                  <tr key={i}>
-                    <td>{d}</td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+            <br/>
+            <ul className="list-group">
+              <li className="list-group-item">039485093845</li>
+              <li className="list-group-item">986598436593</li>
+              <li className="list-group-item">876326429384</li>
+            </ul>
           </section>
         }
-      </div>
+      </li>
     );
   }
 }
