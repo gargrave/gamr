@@ -80,7 +80,13 @@ function deleteGameError() {
  =============================================*/
 export function fetchGamesSuccess(games) {
   return function(dispatch) {
-    dispatch(_fetchGamesSuccess(fbToArray(games)));
+    let gamesArray = fbToArray(games);
+    gamesArray.map(g => {
+      if (!g.dates) {
+        g.dates = [];
+      }
+    });
+    dispatch(_fetchGamesSuccess(gamesArray));
   };
 }
 
