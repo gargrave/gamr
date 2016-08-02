@@ -24,9 +24,9 @@ let games = {
     '0': {
       name: 'Starcraft 2',
       dates: [
-        1469923200000,
-        1469750400000,
-        1468540800000
+        '2016-07-04',
+        '2016-07-06',
+        '2016-07-08'
       ],
       finished: true,
       created: timestamp,
@@ -35,8 +35,9 @@ let games = {
     '1': {
       name: 'Heroes of the Storm',
       dates: [
-        1469923200000,
-        1469750400000
+        '2016-07-04',
+        '2016-07-06',
+        '2016-07-08'
       ],
       finished: false,
       created: timestamp,
@@ -45,8 +46,8 @@ let games = {
     '2': {
       name: 'Diablo 3',
       dates: [
-        1469923200000,
-        1469750400000
+        '2016-07-04',
+        '2016-07-06'
       ],
       finished: true,
       created: timestamp,

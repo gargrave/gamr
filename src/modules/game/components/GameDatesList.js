@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import dateHelper from '../../../utils/dateHelper';
 
 
 class GameDatesList extends React.Component {
@@ -47,9 +48,11 @@ class GameDatesList extends React.Component {
           <section>
             <br/>
             <ul className="list-group">
-              <li className="list-group-item">039485093845</li>
-              <li className="list-group-item">986598436593</li>
-              <li className="list-group-item">876326429384</li>
+            {dates.map(d =>
+              <li key={d} className="list-group-item">
+                {dateHelper.fromDateString(d)}
+              </li>
+            )}
             </ul>
           </section>
         }
