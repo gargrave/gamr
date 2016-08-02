@@ -13,7 +13,7 @@ const buildRecordData = function(record) {
   let dateNow = new Date();
   return {
     name: record.name.trim(),
-    dates: record.dates || [new Date('2016-08-01').getTime()],
+    dates: record.dates || [],
     finished: record.finished,
     created: dateNow.getTime(),
     modified: dateNow.getTime()
@@ -28,7 +28,7 @@ class GameApi {
     let dateNow = new Date();
     return {
       name: '',
-      dates: [new Date('2016-08-01').getTime()],
+      dates: ['2016-07-04', '2106-07-08'],
       finished: false,
       created: dateNow.getTime(),
       modified: dateNow.getTime()

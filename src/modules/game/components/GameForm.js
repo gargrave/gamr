@@ -4,8 +4,10 @@ import TextInput from '../../common/components/TextInput';
 import GameDatesList from './GameDatesList';
 
 
-const GameForm = ({game, working, errors, gameIsDirty,
-  onChange, onCheckChange, onSubmit, onCancel}) => {
+const GameForm = ({
+    game, working, errors, gameIsDirty,
+    onChange, onCheckChange, onSubmit, 
+    onCancel, onAddDate}) => {
   return (
     <form>
       {/* game title input */}
@@ -16,13 +18,14 @@ const GameForm = ({game, working, errors, gameIsDirty,
         placeholder="Game Title"
         onChange={onChange}
         error={errors.name}
-        />
+      />
 
-      {/* list of dates for this game
-      <GameDatesList
-        dates={game.dates}
+      <ul className="list-group">
+        <GameDatesList 
+          dates={game.dates}
+          onAddDate={onAddDate}
         />
-      <hr/>*/}
+      </ul>
 
       {/* 'finished' checkbox */}
       <div className="checkbox">
@@ -32,7 +35,7 @@ const GameForm = ({game, working, errors, gameIsDirty,
             name="finished"
             defaultChecked={game.finished}
             onChange={onCheckChange}
-            /> Finished
+          /> Finished
         </label>
       </div>
 
@@ -42,7 +45,7 @@ const GameForm = ({game, working, errors, gameIsDirty,
         className="btn btn-success"
         disabled={working || !gameIsDirty}
         onClick={onSubmit}
-        />&nbsp;
+      />&nbsp;
 
       {!working &&
         <button
@@ -64,7 +67,8 @@ GameForm.propTypes = {
   onChange: PropTypes.func.isRequired,
   onCheckChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  onCancel: PropTypes.func.isRequired
+  onCancel: PropTypes.func.isRequired,
+  onAddDate: PropTypes.func.isRequired
 };
 
 export default GameForm;

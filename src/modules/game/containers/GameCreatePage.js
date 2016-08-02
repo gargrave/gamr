@@ -23,6 +23,8 @@ class GameCreatePage extends React.Component {
 
     this.onChange = this.onChange.bind(this);
     this.onCheckChange = this.onCheckChange.bind(this);
+    this.onAddDate = this.onAddDate.bind(this);
+    this.onRemoveDate = this.onRemoveDate.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onCancel = this.onCancel.bind(this);
   }
@@ -47,6 +49,16 @@ class GameCreatePage extends React.Component {
     let game = this.state.game;
     game[propKey] = event.target.checked;
     this.setState({ game });
+  }
+
+  onAddDate(date) {
+    let game = this.state.game;
+    game.dates.push(date);
+    this.setState({ game });
+  }
+
+  onRemoveDate(date) {
+    console.log('onRemoveDate: ' + date);
   }
 
   onSubmit(event) {
@@ -114,7 +126,8 @@ class GameCreatePage extends React.Component {
           onCheckChange={this.onCheckChange}
           onSubmit={this.onSubmit}
           onCancel={this.onCancel}
-          />
+          onAddDate={this.onAddDate}
+        />
       </div>
     );
   }
@@ -129,6 +142,8 @@ GameCreatePage.propTypes = {
  = Redux setup
  =============================================*/
 function mapStateToProps(state, ownProps) {
+  console.log('api.getNewRecord():');
+  console.log(api.getNewRecord());
   return {
     game: api.getNewRecord()
   };
