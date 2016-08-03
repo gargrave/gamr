@@ -23,6 +23,7 @@ const GameForm = ({
       <ul className="list-group">
         <GameDatesList
           dates={game.dates}
+          working={working}
           editable={true}
           onAddDate={onAddDate}
           onRemoveDate={onRemoveDate}
@@ -50,12 +51,12 @@ const GameForm = ({
       />&nbsp;
 
       {!working &&
-        <button
+        <span
           className="btn btn-default"
           disabled={working}
           onClick={onCancel}
           >Cancel
-        </button>
+        </span>
       }
     </form>
   );

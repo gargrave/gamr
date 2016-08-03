@@ -126,17 +126,21 @@ class GameDatesList extends React.Component {
    = render
    =============================================*/
   render() {
-    const {dates, editable} = this.props;
+    const {dates, working, editable} = this.props;
     const {date, sortedDates, dateCountOrig, dateCountChanged, disableAdd, showDates, toggleDatesText} = this.state;
 
     return (
       <li className="list-group-item">
         <strong>Dates played: </strong>{dateCountOrig} existing, {dateCountChanged} changed
+
+        {/* show/hide button; not visible in non-editing view when no dates are present */}
+        {(editable || !!dates.length) &&
         <span
           className="btn btn-xs btn-primary pull-right"
           onClick={() => this.onToggleDatesClick()}
           >{toggleDatesText}
         </span>
+        }
 
         {this.state.showDates &&
           <section>
@@ -147,18 +151,8 @@ class GameDatesList extends React.Component {
               {editable &&
                 <li className="list-group-item ">
 
-                  {/* year dropdown */}
-                  <label htmlFor="year">Y:</label>&nbsp;
-                  <select name="year" id="year" value={date.year} onChange={this.onDateChange}>
-                    {range(2000, 2021).map(year =>
-                      <option key={year} value={year} >
-                        {year}
-                      </option>
-                    )}
-                  </select>&nbsp; &nbsp;
-
                   {/* month dropdown */}
-                  <label htmlFor="year">M:</label>&nbsp;
+                  <label htmlFor="year">M:</label>&nbsp;&nbsp;
                   <select name="month" id="month" value={date.month} onChange={this.onDateChange}>
                     {range(1, 13).map(month =>
                       <option key={month} value={month}>
@@ -168,11 +162,21 @@ class GameDatesList extends React.Component {
                   </select>&nbsp; &nbsp;
 
                   {/* day dropdown */}
-                  <label htmlFor="year">D:</label>&nbsp;
+                  <label htmlFor="year">D:</label>&nbsp;&nbsp;
                   <select name="day" id="day" value={date.day} onChange={this.onDateChange}>
                     {range(1, 32).map(day =>
                       <option key={day} value={day}>
                         {day}
+                      </option>
+                    )}
+                  </select>&nbsp; &nbsp;
+
+                  {/* year dropdown */}
+                  <label htmlFor="year">Y:</label>&nbsp;&nbsp;
+                  <select name="year" id="year" value={date.year} onChange={this.onDateChange}>
+                    {range(2000, 2021).map(year =>
+                      <option key={year} value={year} >
+                        {year}
                       </option>
                     )}
                   </select>&nbsp;
@@ -180,13 +184,14 @@ class GameDatesList extends React.Component {
                   {/* 'add date' button */}
                   <span
                     className="btn btn-xs btn-success pull-right"
-                    disabled={disableAdd}
+                    disabled={disableAdd || working}
                     onClick={() => this.onAddDateClick()}>
                     Add
                   </span>
                 </li>
               }
 
+              {/* full list of dates */}
               {sortedDates.map(d =>
                 <li key={d} className="list-group-item clearfix">
                   {dateHelper.fromDateString(d)}
@@ -207,6 +212,7 @@ class GameDatesList extends React.Component {
 
 GameDatesList.propTypes = {
   dates: PropTypes.array.isRequired,
+  working: PropTypes.bool.isRequired,
   editable: PropTypes.bool.isRequired,
   onAddDate: PropTypes.func,
   onRemoveDate: PropTypes.func
