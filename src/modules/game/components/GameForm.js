@@ -6,7 +6,7 @@ import GameDatesList from './GameDatesList';
 
 const GameForm = ({
     game, working, errors, gameIsDirty,
-    onChange, onCheckChange, onSubmit, 
+    onChange, onCheckChange, onSubmit,
     onCancel, onAddDate}) => {
   return (
     <form>
@@ -21,8 +21,9 @@ const GameForm = ({
       />
 
       <ul className="list-group">
-        <GameDatesList 
+        <GameDatesList
           dates={game.dates}
+          editable={true}
           onAddDate={onAddDate}
         />
       </ul>

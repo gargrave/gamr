@@ -81,7 +81,10 @@ class GameDetailPage extends React.Component {
 
         {/* game details */}
         <ul className="list-group">
-          <GameDatesList dates={game.dates} />
+          <GameDatesList 
+            dates={game.dates} 
+            editable={false}
+          />
           <li className="list-group-item">
             <strong>Last played: </strong>{dateHelper.fromDateString(game.dates[0])}
           </li>

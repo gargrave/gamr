@@ -58,7 +58,7 @@ class GameDatesList extends React.Component {
    = render
    =============================================*/
   render() {
-    const {dates} = this.props;
+    const {dates, editable} = this.props;
     const {date, showDates, toggleDatesText} = this.state;
 
     return (
@@ -74,6 +74,9 @@ class GameDatesList extends React.Component {
           <section>
             <br/>
             <ul className="list-group">
+
+              {/* 'add date' controls, when form is editable */}
+              {editable &&
               <li className="list-group-item ">
 
                 {/* year dropdown */}
@@ -104,12 +107,13 @@ class GameDatesList extends React.Component {
                 </select>&nbsp;
 
                 {/* 'add date' button */}
-                <button
-                  className="btn btn-xs btn-success pull-right"
-                  onClick={this.onAddDateClick}>
-                  Add
-                </button>
+                  <button
+                    className="btn btn-xs btn-success pull-right"
+                    onClick={this.onAddDateClick}>
+                    Add
+                  </button>
               </li>
+              }
 
               {dates.map(d =>
                 <li key={d} className="list-group-item">
@@ -126,7 +130,8 @@ class GameDatesList extends React.Component {
 
 GameDatesList.propTypes = {
   dates: PropTypes.array.isRequired,
-  onAddDate: PropTypes.func.isRequired
+  editable: PropTypes.bool.isRequired,
+  onAddDate: PropTypes.func
 };
 
 export default GameDatesList;
