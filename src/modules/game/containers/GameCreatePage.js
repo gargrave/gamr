@@ -58,7 +58,9 @@ class GameCreatePage extends React.Component {
   }
 
   onRemoveDate(date) {
-    console.log('onRemoveDate: ' + date);
+    let game = this.state.game;
+    game.dates = game.dates.filter((d) => d !== date);
+    this.setState({ game });
   }
 
   onSubmit(event) {
@@ -127,6 +129,7 @@ class GameCreatePage extends React.Component {
           onSubmit={this.onSubmit}
           onCancel={this.onCancel}
           onAddDate={this.onAddDate}
+          onRemoveDate={this.onRemoveDate}
         />
       </div>
     );
@@ -142,8 +145,6 @@ GameCreatePage.propTypes = {
  = Redux setup
  =============================================*/
 function mapStateToProps(state, ownProps) {
-  console.log('api.getNewRecord():');
-  console.log(api.getNewRecord());
   return {
     game: api.getNewRecord()
   };

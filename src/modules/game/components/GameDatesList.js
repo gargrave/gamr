@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import {includes, range} from 'lodash';
+import {range} from 'lodash';
 
 import dateHelper from '../../../utils/dateHelper';
 
@@ -8,41 +8,80 @@ class GameDatesList extends React.Component {
   constructor(props, context) {
     super(props, context);
 
+    // set initial date and 'add disabled' states
     const date = {
       year: dateHelper.currentYear(),
       month: dateHelper.currentMonth(),
       day: dateHelper.currentDate()
     };
-    const disableAdd = this.containsCurrentDate(date);
+    const disableAdd = this.propsContainsCurrentDate(props, date);
+    const sortedDates = this.getSortedDates(props.dates);
+    const dateCountOrig = props.dates.length;
 
     this.state = {
       date,
+      sortedDates,
+      dateCountOrig,
+      dateCountChanged: 0,
       disableAdd,
       showDates: false,
       toggleDatesText: 'Show'
     };
 
-    this.onToggleDatesClick = this.onToggleDatesClick.bind(this);
     this.onDateChange = this.onDateChange.bind(this);
-    this.onAddDateClick = this.onAddDateClick.bind(this);
   }
 
-  containsCurrentDate(date) {
+  componentWillReceiveProps(nextProps) {
+    const sortedDates = this.getSortedDates(nextProps.dates);
+    this.setState({ sortedDates });
+    this.updateAddButtonState(nextProps);
+  }
+
+
+  /**
+   * Builds and returns a sorted list of dates. Default order is desc, but can be swtiched
+   *    by supplying 'true' for the optional second param.
+   *
+   * @param {any} dates - The list of date strings
+   * @param {boolean} [asc=false] - Sort order; default is desc
+   * @returns The sorted list of dates
+   */
+  getSortedDates(dates, asc = false) {
+    if (asc) {
+      return dates.sort();
+    }
+    return dates.sort((a, b) => b > a);
+  }
+
+  /**
+   * Checks and returns whether the supplied props object contains the specified date string.
+   *
+   * @param {object} props - The props object to evaluate
+   * @param {string} date - The date string to check for
+   * @returns Whether the specified date is already in the list
+   */
+  propsContainsCurrentDate(props, date) {
     const dateStr = dateHelper.getDateString(date.year, date.month, date.day);
-    return includes(this.props.dates, dateStr);
+    return props.dates.includes(dateStr);
   }
 
-  updateAddButtonState() {
-    const disableAdd = this.containsCurrentDate(this.state.date);
+  /**
+   * Updates the status of the 'add date' button;
+   * disabled if the currently-selected date is already in the list
+   */
+  updateAddButtonState(props = this.props) {
+    const disableAdd = this.propsContainsCurrentDate(props, this.state.date);
     this.setState({ disableAdd });
   }
 
   /*=============================================
    = event handlers
    =============================================*/
-  onToggleDatesClick(event) {
-    event.preventDefault();
-
+  /**
+   * Event handler for the 'show/hide dates' button;
+   * Toggles the visibility of the dates list
+   */
+  onToggleDatesClick() {
     let showDates = !this.state.showDates;
     let toggleDatesText = showDates ? 'Hide' : 'Show';
     this.setState({
@@ -51,6 +90,11 @@ class GameDatesList extends React.Component {
     });
   }
 
+  /**
+   * Event handler for value changes in the date selectors;
+   * Updates the values of the components 'date' state property,
+   *    and updates the status of the 'add' button
+   */
   onDateChange(event) {
     event.preventDefault();
 
@@ -61,15 +105,21 @@ class GameDatesList extends React.Component {
     this.updateAddButtonState();
   }
 
-  onAddDateClick(event) {
-    event.preventDefault();
-
+  /**
+   * Event handler for clicking the 'add date' button;
+   * Attempts to add the currently-selected date to the list
+   */
+  onAddDateClick() {
     if (!this.state.disableAdd) {
       const d = this.state.date;
       const dateStr = dateHelper.getDateString(d.year, d.month, d.day);
       this.props.onAddDate(dateStr);
-      this.updateAddButtonState();
+      this.setState({ dateCountChanged: this.state.dateCountChanged + 1 });
     }
+  }
+
+  onRemoveDateClick(dateStr) {
+    this.props.onRemoveDate(dateStr);
   }
 
   /*=============================================
@@ -77,16 +127,16 @@ class GameDatesList extends React.Component {
    =============================================*/
   render() {
     const {dates, editable} = this.props;
-    const {date, disableAdd, showDates, toggleDatesText} = this.state;
+    const {date, sortedDates, dateCountOrig, dateCountChanged, disableAdd, showDates, toggleDatesText} = this.state;
 
     return (
       <li className="list-group-item">
-        <strong>Dates played: </strong>{dates.length}
-        <button
+        <strong>Dates played: </strong>{dateCountOrig} existing, {dateCountChanged} changed
+        <span
           className="btn btn-xs btn-primary pull-right"
-          onClick={this.onToggleDatesClick}
+          onClick={() => this.onToggleDatesClick()}
           >{toggleDatesText}
-        </button>
+        </span>
 
         {this.state.showDates &&
           <section>
@@ -95,50 +145,58 @@ class GameDatesList extends React.Component {
 
               {/* 'add date' controls, when form is editable */}
               {editable &&
-              <li className="list-group-item ">
+                <li className="list-group-item ">
 
-                {/* year dropdown */}
-                <select name="year" id="year" value={date.year} onChange={this.onDateChange}>
-                  {range(2000, 2021).map(year =>
-                    <option key={year} value={year} >
-                      {year}
-                    </option>
-                  )}
-                </select>&nbsp; &nbsp;
+                  {/* year dropdown */}
+                  <label htmlFor="year">Y:</label>&nbsp;
+                  <select name="year" id="year" value={date.year} onChange={this.onDateChange}>
+                    {range(2000, 2021).map(year =>
+                      <option key={year} value={year} >
+                        {year}
+                      </option>
+                    )}
+                  </select>&nbsp; &nbsp;
 
-                {/* month dropdown */}
-                <select name="month" id="month" value={date.month} onChange={this.onDateChange}>
-                  {range(1, 13).map(month =>
-                    <option key={month} value={month}>
-                      {month}
-                    </option>
-                  )}
-                </select>&nbsp; &nbsp;
+                  {/* month dropdown */}
+                  <label htmlFor="year">M:</label>&nbsp;
+                  <select name="month" id="month" value={date.month} onChange={this.onDateChange}>
+                    {range(1, 13).map(month =>
+                      <option key={month} value={month}>
+                        {month}
+                      </option>
+                    )}
+                  </select>&nbsp; &nbsp;
 
-                {/* day dropdown */}
-                <select name="day" id="day" value={date.day} onChange={this.onDateChange}>
-                  {range(1, 32).map(day =>
-                    <option key={day} value={day}>
-                      {day}
-                    </option>
-                  )}
-                </select>&nbsp;
+                  {/* day dropdown */}
+                  <label htmlFor="year">D:</label>&nbsp;
+                  <select name="day" id="day" value={date.day} onChange={this.onDateChange}>
+                    {range(1, 32).map(day =>
+                      <option key={day} value={day}>
+                        {day}
+                      </option>
+                    )}
+                  </select>&nbsp;
 
-                {/* 'add date' button */}
-                  <button
+                  {/* 'add date' button */}
+                  <span
                     className="btn btn-xs btn-success pull-right"
                     disabled={disableAdd}
-                    onClick={this.onAddDateClick}>
+                    onClick={() => this.onAddDateClick()}>
                     Add
-                  </button>
-              </li>
+                  </span>
+                </li>
               }
 
-              {dates.map(d =>
-                <li key={d} className="list-group-item">
+              {sortedDates.map(d =>
+                <li key={d} className="list-group-item clearfix">
                   {dateHelper.fromDateString(d)}
+                  {editable &&
+                    <span className="btn btn-xs btn-default pull-right" onClick={() => this.onRemoveDateClick(d)}>
+                      <span className="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </span>
+                  }
                 </li>
-              )}
+              ) }
             </ul>
           </section>
         }
@@ -150,7 +208,8 @@ class GameDatesList extends React.Component {
 GameDatesList.propTypes = {
   dates: PropTypes.array.isRequired,
   editable: PropTypes.bool.isRequired,
-  onAddDate: PropTypes.func
+  onAddDate: PropTypes.func,
+  onRemoveDate: PropTypes.func
 };
 
 export default GameDatesList;

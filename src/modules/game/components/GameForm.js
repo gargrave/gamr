@@ -7,7 +7,7 @@ import GameDatesList from './GameDatesList';
 const GameForm = ({
     game, working, errors, gameIsDirty,
     onChange, onCheckChange, onSubmit,
-    onCancel, onAddDate}) => {
+    onCancel, onAddDate, onRemoveDate}) => {
   return (
     <form>
       {/* game title input */}
@@ -25,6 +25,7 @@ const GameForm = ({
           dates={game.dates}
           editable={true}
           onAddDate={onAddDate}
+          onRemoveDate={onRemoveDate}
         />
       </ul>
 
@@ -69,7 +70,8 @@ GameForm.propTypes = {
   onCheckChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
-  onAddDate: PropTypes.func.isRequired
+  onAddDate: PropTypes.func.isRequired,
+  onRemoveDate: PropTypes.func.isRequired
 };
 
 export default GameForm;
