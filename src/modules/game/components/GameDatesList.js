@@ -33,7 +33,11 @@ class GameDatesList extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const sortedDates = this.getSortedDates(nextProps.dates);
-    this.setState({ sortedDates });
+    const dateCountOrig = nextProps.dates.length;
+    this.setState({
+      sortedDates,
+      dateCountOrig
+    });
     this.updateAddButtonState(nextProps);
   }
 

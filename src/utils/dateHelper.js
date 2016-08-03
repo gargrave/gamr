@@ -29,5 +29,9 @@ export default {
 
   getDateString: function(y, m, d) {
     return `${y}-${padLeft(m, 2)}-${padLeft(d, 2)}`;
+  },
+
+  todayDateString: function() {
+    return `${nowYear}-${padLeft(nowMonth, 2)}-${padLeft(nowDate, 2)}`;
   }
 };

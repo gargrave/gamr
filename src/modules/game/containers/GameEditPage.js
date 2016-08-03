@@ -106,6 +106,7 @@ class GameEditPage extends React.Component {
 
   onSubmit(event) {
     event.preventDefault();
+
     if (this.isValid()) {
       this.setState({ working: true });
       this.props.actions.updateGame(this.state.game)
@@ -118,7 +119,7 @@ class GameEditPage extends React.Component {
             working: false,
             apiError: err.message
           });
-          toastr.error('Error creating game', 'Error');
+          toastr.error('Error updating game', 'Error');
         });
     }
   }

@@ -2,8 +2,8 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import toastr from 'toastr';
-import * as actions from '../gameActions';
 
+import * as actions from '../gameActions';
 import {GAME_API} from '../../../constants/env';
 import goto from '../../../utils/goto';
 import apiHelper from '../../../utils/apiHelper';
@@ -16,10 +16,14 @@ class GameDetailPage extends React.Component {
   constructor(props, context) {
     super(props, context);
 
+    const today = dateHelper.todayDateString();
+    const showAddToday = !props.game.dates.includes(today);
+
     this.state = {
       game: Object.assign({}, props.game),
       working: false,
-      apiError: ''
+      apiError: '',
+      showAddToday
     };
 
     this.onDeleteClick = this.onDeleteClick.bind(this);
@@ -31,6 +35,12 @@ class GameDetailPage extends React.Component {
     if (!this.props.game.id) {
       this.redirectToListPage();
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const today = dateHelper.todayDateString();
+    const showAddToday = !nextProps.game.dates.includes(today);
+    this.setState({ showAddToday });
   }
 
   /*=============================================
@@ -48,6 +58,55 @@ class GameDetailPage extends React.Component {
   /*=============================================
    = event handlers
    =============================================*/
+  onAddTodayClick() {
+    let game = Object.assign({}, this.state.game);
+    let dates = Object.assign([], this.state.game.dates);
+    let today = dateHelper.todayDateString();
+
+    if (!game.dates.includes(today)) {
+      this.setState({ working: true });
+      dates.push(today);
+      game.dates = dates;
+      this.props.actions.updateGame(game)
+        .then(res => {
+          this.setState({
+            game,
+            working: false
+          });
+        }, err => {
+          this.setState({
+            working: false,
+            apiError: err.message
+          });
+          toastr.error('Error updating game', 'Error');
+        });
+    }
+  }
+
+  onRemoveTodayClick() {
+    let game = Object.assign({}, this.state.game);
+    let dates = Object.assign([], this.state.game.dates);
+    let today = dateHelper.todayDateString();
+
+    if (game.dates.includes(today)) {
+      this.setState({ working: true });
+      game.dates = dates.filter(d => d !== today);
+      this.props.actions.updateGame(game)
+        .then(res => {
+          this.setState({
+            game,
+            working: false
+          });
+        }, err => {
+          this.setState({
+            working: false,
+            apiError: err.message
+          });
+          toastr.error('Error updating game', 'Error');
+        });
+    }
+  }
+
   onDeleteClick(event) {
     event.preventDefault();
 
@@ -69,11 +128,27 @@ class GameDetailPage extends React.Component {
   }
 
   render() {
-    const {game, working, apiError} = this.state;
+    const {game, working, apiError, showAddToday} = this.state;
     return (
       <div>
         <h3>{game.name}</h3>
         <hr/>
+
+        {showAddToday &&
+        <span
+          className="btn btn-block btn-info"
+          onClick={() => this.onAddTodayClick()}>
+          Add Today
+        </span>
+        }
+        {!showAddToday &&
+        <span
+          className="btn btn-block btn-warning"
+          onClick={() => this.onRemoveTodayClick()}>
+          Remove Today
+        </span>
+        }
+        <br/>
 
         {apiError &&
           <div className="alert alert-danger">Error: {apiError}</div>
@@ -81,8 +156,9 @@ class GameDetailPage extends React.Component {
 
         {/* game details */}
         <ul className="list-group">
-          <GameDatesList 
-            dates={game.dates} 
+          <GameDatesList
+            dates={game.dates}
+            working={working}
             editable={false}
           />
           <li className="list-group-item">
