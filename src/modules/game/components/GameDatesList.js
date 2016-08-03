@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import {range} from 'lodash';
+import {includes, range} from 'lodash';
 
 import dateHelper from '../../../utils/dateHelper';
 
@@ -8,12 +8,16 @@ class GameDatesList extends React.Component {
   constructor(props, context) {
     super(props, context);
 
+    const date = {
+      year: dateHelper.currentYear(),
+      month: dateHelper.currentMonth(),
+      day: dateHelper.currentDate()
+    };
+    const disableAdd = this.containsCurrentDate(date);
+
     this.state = {
-      date: {
-        year: dateHelper.currentYear(),
-        month: dateHelper.currentMonth(),
-        day: dateHelper.currentDate()
-      },
+      date,
+      disableAdd,
       showDates: false,
       toggleDatesText: 'Show'
     };
@@ -21,6 +25,16 @@ class GameDatesList extends React.Component {
     this.onToggleDatesClick = this.onToggleDatesClick.bind(this);
     this.onDateChange = this.onDateChange.bind(this);
     this.onAddDateClick = this.onAddDateClick.bind(this);
+  }
+
+  containsCurrentDate(date) {
+    const dateStr = dateHelper.getDateString(date.year, date.month, date.day);
+    return includes(this.props.dates, dateStr);
+  }
+
+  updateAddButtonState() {
+    const disableAdd = this.containsCurrentDate(this.state.date);
+    this.setState({ disableAdd });
   }
 
   /*=============================================
@@ -44,14 +58,18 @@ class GameDatesList extends React.Component {
     let key = event.target.name;
     date[key] = event.target.value;
     this.setState({ date });
+    this.updateAddButtonState();
   }
 
   onAddDateClick(event) {
     event.preventDefault();
 
-    const d = this.state.date;
-    const dateStr = dateHelper.getDateString(d.year, d.month, d.day);
-    this.props.onAddDate(dateStr);
+    if (!this.state.disableAdd) {
+      const d = this.state.date;
+      const dateStr = dateHelper.getDateString(d.year, d.month, d.day);
+      this.props.onAddDate(dateStr);
+      this.updateAddButtonState();
+    }
   }
 
   /*=============================================
@@ -59,7 +77,7 @@ class GameDatesList extends React.Component {
    =============================================*/
   render() {
     const {dates, editable} = this.props;
-    const {date, showDates, toggleDatesText} = this.state;
+    const {date, disableAdd, showDates, toggleDatesText} = this.state;
 
     return (
       <li className="list-group-item">
@@ -109,6 +127,7 @@ class GameDatesList extends React.Component {
                 {/* 'add date' button */}
                   <button
                     className="btn btn-xs btn-success pull-right"
+                    disabled={disableAdd}
                     onClick={this.onAddDateClick}>
                     Add
                   </button>
