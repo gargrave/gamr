@@ -28,7 +28,7 @@ class GameApi {
     let dateNow = new Date();
     return {
       name: '',
-      dates: ['2016-07-04', '2106-07-08'],
+      dates: [],
       finished: false,
       created: dateNow.getTime(),
       modified: dateNow.getTime()

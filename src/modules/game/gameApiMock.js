@@ -37,7 +37,7 @@ let games = {
       dates: [
         '2016-07-04',
         '2016-07-06',
-        '2016-07-08'
+        '2016-07-15'
       ],
       finished: false,
       created: timestamp,
@@ -45,10 +45,13 @@ let games = {
     },
     '2': {
       name: 'Diablo 3',
-      dates: [
-        '2016-07-04',
-        '2016-07-06'
-      ],
+      finished: true,
+      created: timestamp,
+      modified: timestamp
+    },
+    '3': {
+      name: 'Starbound',
+      dates: [],
       finished: true,
       created: timestamp,
       modified: timestamp
@@ -58,8 +61,8 @@ let games = {
     '3': {
       name: 'Fallout 4',
       dates: [
-        1469923200000,
-        1469750400000
+        '2016-06-04',
+        '2016-07-06'
       ],
       finished: true,
       created: timestamp,
@@ -68,8 +71,8 @@ let games = {
     '4': {
       name: 'Starcraft 2',
       dates: [
-        1469923200000,
-        1469750400000
+        '2016-05-04',
+        '2016-07-06'
       ],
       finished: false,
       created: timestamp,
@@ -78,8 +81,8 @@ let games = {
     '5': {
       name: 'Overwatch',
       dates: [
-        1469923200000,
-        1469750400000
+        '2016-03-04',
+        '2016-08-06'
       ],
       finished: false,
       created: timestamp,
