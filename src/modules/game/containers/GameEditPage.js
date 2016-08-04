@@ -15,10 +15,14 @@ class GameEditPage extends React.Component {
   constructor(props, context) {
     super(props, context);
 
+    let game = Object.assign({}, props.game);
+    game.dates = Object.assign([], props.game.dates);
+    let gameCopy = Object.assign({}, props.game);
+    gameCopy.dates = Object.assign([], props.game.dates);
+
     this.state = {
-      game: Object.assign({}, props.game), // working game data
-      gameCopy: Object.assign({}, props.game), // unedited, original game (i.e. for dirty-checking)
-      gameDatesOrig: Object.assign([], props.game.dates),
+      game, // working game data
+      gameCopy, // unedited, original game (i.e. for dirty-checking)
       gameIsDirty: false, // whether the editing game differs from original
       working: false,
       errors: {},
@@ -61,7 +65,7 @@ class GameEditPage extends React.Component {
     }
 
     // compare date lists
-    let datesOrig = this.state.gameDatesOrig;
+    let datesOrig = this.state.gameCopy.dates;
     let datesNew = this.state.game.dates;
     if (!isEqual(datesOrig, datesNew)) {
       gameIsDirty = true;
