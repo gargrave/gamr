@@ -4,9 +4,9 @@ import {bindActionCreators} from 'redux';
 import toastr from 'toastr';
 
 import * as actions from '../gameActions';
+import {GAME_API, PLATFORM_API} from '../../../constants/env';
 import validate from '../../../utils/validate';
 import goto from '../../../utils/goto';
-import api from '../gameApi';
 import GameForm from '../components/GameForm';
 
 
@@ -104,6 +104,13 @@ class GameCreatePage extends React.Component {
       valid = false;
     }
 
+    let platformParams = { required: true };
+    let platformVal = validate(game.platform, platformParams);
+    if (!platformVal.valid) {
+      errors.platform = nameVal.error;
+      valid = false;
+    }
+
     this.setState({ errors });
     return valid;
   }
@@ -146,7 +153,7 @@ GameCreatePage.propTypes = {
  =============================================*/
 function mapStateToProps(state, ownProps) {
   return {
-    game: api.getNewRecord()
+    game: GAME_API.getNewRecord()
   };
 }
 

@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import toastr from 'toastr';
 
 import * as actions from '../gameActions';
-import {GAME_API} from '../../../constants/env';
+import {GAME_API, PLATFORM_API} from '../../../constants/env';
 import goto from '../../../utils/goto';
 import apiHelper from '../../../utils/apiHelper';
 import dateHelper from '../../../utils/dateHelper';
@@ -170,6 +170,9 @@ class GameDetailPage extends React.Component {
 
         {/* game details */}
         <ul className="list-group">
+          <li className="list-group-item">
+            <strong>Platform: </strong>{game.platform.name}
+          </li>
           <GameDatesList
             dates={game.dates}
             working={working}
@@ -192,7 +195,7 @@ class GameDetailPage extends React.Component {
         </button>&nbsp;
 
         <button
-          className="btn btn-default"
+          className="btn btn-default pull-right"
           disabled={working}
           onClick={this.redirectToListPage}>
           Back
@@ -215,8 +218,11 @@ GameDetailPage.propTypes = {
 function mapStateToProps(state, ownProps) {
   let gameId = ownProps.params.id;
   let game = apiHelper.findRecordById(state.games, gameId);
+
   if (!game) {
     game = GAME_API.getNewRecord();
+  } else {
+    game.platform = apiHelper.findRecordById(state.platforms, game.platform);
   }
 
   return {

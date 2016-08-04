@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 
 import TextInput from '../../common/components/TextInput';
+import PlatformDropdown from '../../platform/components/PlatformDropdown';
 import GameDatesList from './GameDatesList';
 
 
@@ -18,6 +19,11 @@ const GameForm = ({
         placeholder="Game Title"
         onChange={onChange}
         error={errors.name}
+      />
+
+      <PlatformDropdown
+        onChange={onChange}
+        error={errors.platform}
       />
 
       <ul className="list-group">

@@ -9,6 +9,7 @@ const buildRecordData = function(record) {
   let dateNow = new Date();
   return {
     name: record.name.trim(),
+    platform: record.platform,
     dates: record.dates || [],
     finished: record.finished,
     created: dateNow.getTime(),
@@ -23,6 +24,7 @@ let games = {
   '0': {
     '0': {
       name: 'Starcraft 2',
+      platform: '2',
       dates: [
         '2016-06-04',
         '2016-08-01',
@@ -36,6 +38,7 @@ let games = {
     },
     '1': {
       name: 'Heroes of the Storm',
+      platform: '2',
       dates: [
         '2016-07-04',
         '2016-07-06',
@@ -47,12 +50,14 @@ let games = {
     },
     '2': {
       name: 'Diablo 3',
+      platform: '2',
       finished: true,
       created: timestamp,
       modified: timestamp
     },
     '3': {
       name: 'Starbound',
+      platform: '2',
       dates: [],
       finished: true,
       created: timestamp,
@@ -62,6 +67,7 @@ let games = {
   '1': {
     '3': {
       name: 'Fallout 4',
+      platform: '2',
       dates: [
         '2016-06-04',
         '2016-07-06'
@@ -72,6 +78,7 @@ let games = {
     },
     '4': {
       name: 'Starcraft 2',
+      platform: '2',
       dates: [
         '2016-05-04',
         '2016-07-06'
@@ -82,6 +89,7 @@ let games = {
     },
     '5': {
       name: 'Overwatch',
+      platform: '2',
       dates: [
         '2016-03-04',
         '2016-08-06'
@@ -102,6 +110,7 @@ class GameApiMock {
     let dateNow = new Date();
     return {
       name: '',
+      platform: '',
       dates: [],
       finished: false,
       created: dateNow.getTime(),
