@@ -16,7 +16,7 @@ class GameDetailPage extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    const game = this.gamePropsToState(props);
+    const game = this.buildGameForState(props.game);
     const showAddToday = this.showAddTodayPropsToState(props);
 
     this.state = {
@@ -38,25 +38,23 @@ class GameDetailPage extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const game = this.gamePropsToState(nextProps);
     const showAddToday = this.showAddTodayPropsToState(nextProps);
 
     this.setState({
-      game,
       showAddToday
     });
   }
 
   /*=============================================
-   = props-to-state methods
+   = state helper methods
    =============================================*/
   showAddTodayPropsToState(props) {
     return !props.game.dates.includes(dateHelper.todayDateString());
   }
 
-  gamePropsToState(props) {
-    let game = Object.assign({}, props.game);
-    game.dates.sort((a, b) => b > a); // default sorting dates in reverse chrono order
+  buildGameForState(gameData) {
+    let game = Object.assign({}, gameData);
+    game.dates.sort((a, b) => b > a ? 1 : -1);
     return game;
   }
 
@@ -80,14 +78,13 @@ class GameDetailPage extends React.Component {
     let dates = Object.assign([], this.state.game.dates);
     let today = dateHelper.todayDateString();
 
-    if (!game.dates.includes(today)) {
+    if (!dates.includes(today)) {
+      game.dates = dates.concat(today);
       this.setState({ working: true });
-      dates.push(today);
-      game.dates = dates;
       this.props.actions.updateGame(game)
         .then(res => {
           this.setState({
-            game,
+            game: this.buildGameForState(game),
             working: false
           });
         }, err => {
@@ -106,12 +103,12 @@ class GameDetailPage extends React.Component {
     let today = dateHelper.todayDateString();
 
     if (game.dates.includes(today)) {
-      this.setState({ working: true });
       game.dates = dates.filter(d => d !== today);
+      this.setState({ working: true });
       this.props.actions.updateGame(game)
         .then(res => {
           this.setState({
-            game,
+            game: this.buildGameForState(game),
             working: false
           });
         }, err => {
@@ -177,7 +174,7 @@ class GameDetailPage extends React.Component {
             dates={game.dates}
             working={working}
             editable={false}
-          />
+            />
           <li className="list-group-item">
             <strong>Last played: </strong>{dateHelper.fromDateString(game.dates[0])}
           </li>
@@ -194,13 +191,12 @@ class GameDetailPage extends React.Component {
           Edit
         </button>&nbsp;
 
-        {!working &&
-          <button
-            className="btn btn-default"
-            onClick={this.redirectToListPage}>
-            Back
-          </button>
-        }
+        <button
+          className="btn btn-default"
+          disabled={working}
+          onClick={this.redirectToListPage}>
+          Back
+        </button>
         <hr/>
 
         <p>
