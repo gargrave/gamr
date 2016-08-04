@@ -156,7 +156,7 @@ class GameDatesList extends React.Component {
                 <li className="list-group-item ">
 
                   {/* month dropdown */}
-                  <label htmlFor="year">M:</label>&nbsp;&nbsp;
+                  <label htmlFor="month">M:</label>&nbsp;&nbsp;
                   <select name="month" id="month" value={date.month} onChange={this.onDateChange}>
                     {range(1, 13).map(month =>
                       <option key={month} value={month}>
@@ -166,7 +166,7 @@ class GameDatesList extends React.Component {
                   </select>&nbsp; &nbsp;
 
                   {/* day dropdown */}
-                  <label htmlFor="year">D:</label>&nbsp;&nbsp;
+                  <label htmlFor="day">D:</label>&nbsp;&nbsp;
                   <select name="day" id="day" value={date.day} onChange={this.onDateChange}>
                     {range(1, 32).map(day =>
                       <option key={day} value={day}>
@@ -205,7 +205,7 @@ class GameDatesList extends React.Component {
                     </span>
                   }
                 </li>
-              ) }
+              )}
             </ul>
           </section>
         }
