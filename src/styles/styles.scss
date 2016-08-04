@@ -7,9 +7,12 @@ body {
   color: #e50000;
 }
 
-@media (max-width: 768px){
-  // increase font size for forms on small devices
-  input[type="text"], input[type="number"], textarea {
-    font-size: 16px;
-  }
+// increase font size for forms on small devices
+input[type="text"], input[type="number"], textarea, select {
+  font-size: 16px;
+}
+
+// Tablet upwards
+@media (min-width: 768px) {
+  font-size: 14px;
 }
