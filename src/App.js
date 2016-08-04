@@ -16,14 +16,17 @@ class App extends React.Component {
         <Navbar
           location={this.props.location}
           user={this.props.user}
-          />
+        />
 
         <div className="container">
 
           <aside className="col-md-2 col-md-offset-1 hidden-sm hidden-xs">
             <div className="row">
               <h4>Navigation</h4>
-              <SideNav location={this.props.location} />
+              <SideNav
+                location={this.props.location}
+                loggedIn={!!this.props.user.email}
+              />
             </div>
           </aside>
 

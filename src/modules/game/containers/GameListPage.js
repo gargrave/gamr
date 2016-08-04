@@ -27,11 +27,13 @@ class GameListPage extends React.Component {
     return (
       <div>
         <h3>Games &nbsp;
-          <button
-            className="btn btn-success"
-            onClick={this.redirectToCreatePage}>
-            Add a Game
-          </button>
+          {loggedIn &&
+            <button
+              className="btn btn-success"
+              onClick={this.redirectToCreatePage}>
+              Add a Game
+            </button>
+          }
         </h3>
         <hr/>
 

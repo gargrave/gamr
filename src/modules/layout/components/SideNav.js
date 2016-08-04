@@ -2,12 +2,16 @@ import React, {PropTypes} from 'react';
 import {Link, IndexLink} from 'react-router';
 
 
-const SideNav = ({location}) => {
+const SideNav = ({loggedIn}) => {
   return (
     <ul>
       <li><IndexLink to="/">Home</IndexLink></li>
-      <li><Link to="/game">Games</Link></li>
-      <li><Link to="/platform">Platforms</Link></li>
+      {loggedIn &&
+        <span>
+          <li><Link to="/game">Games</Link></li>
+          <li><Link to="/platform">Platforms</Link></li>
+        </span>
+      }
       <li><Link to="/account">Account</Link></li>
       <li><Link to="/about">About</Link></li>
     </ul>
@@ -15,7 +19,7 @@ const SideNav = ({location}) => {
 };
 
 SideNav.propTypes = {
-  location: PropTypes.object.isRequired
+  loggedIn: PropTypes.bool.isRequired
 };
 
 export default SideNav;

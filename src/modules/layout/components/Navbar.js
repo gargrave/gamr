@@ -9,6 +9,8 @@ const Navbar = ({user, location}) => {
     return path == location.pathname ? 'active' : '';
   }
 
+  const loggedIn = !!user.email;
+
   return (
     <nav className="navbar navbar-inverse navbar-fixed-top">
       <div className="container-fluid">
@@ -25,7 +27,7 @@ const Navbar = ({user, location}) => {
         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
           {/* primary nav links, when user is logged in */}
-          {!!user.email &&
+          {!!loggedIn &&
             <ul className="nav navbar-nav">
               <li className={getActiveClass('/game')}>
                 <Link to="/game">Games</Link>
@@ -37,7 +39,7 @@ const Navbar = ({user, location}) => {
           }
 
           {/* account/profile dropdown, when user is logged in */}
-          {!!user.email &&
+          {!!loggedIn &&
             <ul className="nav navbar-nav navbar-right">
               <li className="dropdown">
                 <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button"

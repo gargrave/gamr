@@ -27,11 +27,13 @@ class PlatformListPage extends React.Component {
     return (
       <div>
         <h3>Platforms&nbsp;
-          <button
-            className="btn btn-success"
-            onClick={this.redirectToCreatePage}>
-            Add a Platform
-          </button>
+          {loggedIn &&
+            <button
+              className="btn btn-success"
+              onClick={this.redirectToCreatePage}>
+              Add a Platform
+            </button>
+          }
         </h3>
         <hr/>
 
