@@ -16,11 +16,11 @@ class GameDetailPage extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    const today = dateHelper.todayDateString();
-    const showAddToday = !props.game.dates.includes(today);
+    const game = this.gamePropsToState(props);
+    const showAddToday = this.showAddTodayPropsToState(props);
 
     this.state = {
-      game: Object.assign({}, props.game),
+      game,
       working: false,
       apiError: '',
       showAddToday
@@ -38,9 +38,26 @@ class GameDetailPage extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const today = dateHelper.todayDateString();
-    const showAddToday = !nextProps.game.dates.includes(today);
-    this.setState({ showAddToday });
+    const game = this.gamePropsToState(nextProps);
+    const showAddToday = this.showAddTodayPropsToState(nextProps);
+
+    this.setState({
+      game,
+      showAddToday
+    });
+  }
+
+  /*=============================================
+   = props-to-state methods
+   =============================================*/
+  showAddTodayPropsToState(props) {
+    return !props.game.dates.includes(dateHelper.todayDateString());
+  }
+
+  gamePropsToState(props) {
+    let game = Object.assign({}, props.game);
+    game.dates.sort((a, b) => b > a); // default sorting dates in reverse chrono order
+    return game;
   }
 
   /*=============================================
@@ -135,18 +152,18 @@ class GameDetailPage extends React.Component {
         <hr/>
 
         {showAddToday &&
-        <span
-          className="btn btn-block btn-info"
-          onClick={() => this.onAddTodayClick()}>
-          Add Today
-        </span>
+          <span
+            className="btn btn-block btn-info"
+            onClick={() => this.onAddTodayClick()}>
+            Add Today
+          </span>
         }
         {!showAddToday &&
-        <span
-          className="btn btn-block btn-warning"
-          onClick={() => this.onRemoveTodayClick()}>
-          Remove Today
-        </span>
+          <span
+            className="btn btn-block btn-warning"
+            onClick={() => this.onRemoveTodayClick()}>
+            Remove Today
+          </span>
         }
         <br/>
 
