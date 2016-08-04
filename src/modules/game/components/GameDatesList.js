@@ -57,7 +57,7 @@ class GameDatesList extends React.Component {
     if (asc) {
       return dates.sort();
     }
-    return dates.sort((a, b) => b > a);
+    return dates.sort((a, b) => b > a ? 1 : -1);
   }
 
   /**
@@ -142,7 +142,8 @@ class GameDatesList extends React.Component {
     return (
       <li className="list-group-item">
 
-        <strong>Dates played: </strong>{datesOrig.length} existing, {dateCountChanged} changed
+        {/*<strong>Dates played: </strong>{datesOrig.length} existing, {dateCountChanged} changed*/}
+        <strong>Dates played: </strong>TODO
 
         {/* show/hide button; not visible in non-editing view when no dates are present */}
         {(editable || !!dates.length) &&
@@ -163,7 +164,7 @@ class GameDatesList extends React.Component {
                 <li className="list-group-item ">
 
                   {/* month dropdown */}
-                  <label htmlFor="month">M: </label>&nbsp; &nbsp;
+                  <label htmlFor="month">M: </label>
                   <select name="month" id="month" value={date.month} onChange={this.onDateChange}>
                     {range(1, 13).map(month =>
                       <option key={month} value={month}>
@@ -173,7 +174,7 @@ class GameDatesList extends React.Component {
                   </select>&nbsp; &nbsp;
 
                   {/* day dropdown */}
-                  <label htmlFor="day">D: </label>&nbsp; &nbsp;
+                  <label htmlFor="day">D: </label>
                   <select name="day" id="day" value={date.day} onChange={this.onDateChange}>
                     {range(1, 32).map(day =>
                       <option key={day} value={day}>
@@ -183,7 +184,7 @@ class GameDatesList extends React.Component {
                   </select>&nbsp; &nbsp;
 
                   {/* year dropdown */}
-                  <label htmlFor="year">Y: </label>&nbsp; &nbsp;
+                  <label htmlFor="year">Y: </label>
                   <select name="year" id="year" value={date.year} onChange={this.onDateChange}>
                     {range(2000, 2021).map(year =>
                       <option key={year} value={year} >
