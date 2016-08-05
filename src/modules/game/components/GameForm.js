@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 
+import SubmitCancelBtnGroup from '../../common/components/SubmitCancelBtnGroup';
 import TextInput from '../../common/components/TextInput';
 import PlatformDropdown from '../../platform/components/PlatformDropdown';
 import GameDatesList from './GameDatesList';
@@ -49,22 +50,12 @@ const GameForm = ({
         </label>
       </div>
 
-      <input
-        type="submit"
-        value="Submit"
-        className="btn btn-success"
-        disabled={working || !gameIsDirty}
-        onClick={onSubmit}
-      />&nbsp;
-
-      {!working &&
-        <span
-          className="btn btn-default"
-          disabled={working}
-          onClick={onCancel}
-          >Cancel
-        </span>
-      }
+      <SubmitCancelBtnGroup
+        working={working}
+        disableSubmit={!gameIsDirty}
+        onSubmit={onSubmit}
+        onCancelClick={onCancel}
+      />
     </form>
   );
 };
