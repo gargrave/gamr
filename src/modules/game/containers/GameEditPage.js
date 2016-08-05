@@ -57,6 +57,13 @@ class GameEditPage extends React.Component {
       gameIsDirty = true;
     }
 
+    // compare platforms
+    let platformOrig = this.state.gameCopy.platform;
+    let platformNew = this.state.game.platform;
+    if (platformOrig !== platformNew) {
+      gameIsDirty = true;
+    }
+
     // compare game 'finished' properties
     let finishedOrig = this.state.gameCopy.finished;
     let finishedNew = this.state.game.finished;
