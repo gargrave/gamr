@@ -22,6 +22,7 @@ const GameForm = ({
       />
 
       <PlatformDropdown
+        platform={game.platform}
         onChange={onChange}
         error={errors.platform}
       />

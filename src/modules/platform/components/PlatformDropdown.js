@@ -8,12 +8,12 @@ class PlatformDropdown extends React.Component {
   }
 
   render() {
-    const {platforms, onChange, error} = this.props;
+    const {platform, platforms, onChange, error} = this.props;
     return (
       <div className="form-group">
         <label htmlFor="platform">Platform</label>
         {!!error && <span className="error-msg">{error}</span>}
-        <select name="platform" id="platform" className="form-control" onChange={onChange}>
+        <select name="platform" id="platform" className="form-control" value={platform} onChange={onChange}>
           <option value="">Select a platform</option>
           {platforms.map(p =>
             <option key={p.id} value={p.id}>{p.name}</option>
@@ -25,6 +25,7 @@ class PlatformDropdown extends React.Component {
 }
 
 PlatformDropdown.propTypes = {
+  platform: PropTypes.string.isRequired,
   platforms: PropTypes.array.isRequired,
   onChange: PropTypes.func.isRequired,
   error: PropTypes.string
