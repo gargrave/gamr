@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 
-import GameDetail from './GameDetail';
+import GameListDetail from './GameListDetail';
 
 
 const GameList = ({games}) => {
@@ -14,7 +14,7 @@ const GameList = ({games}) => {
 
       {/* list shown when user has 1 or more games */}
       {!!count && games.map(game =>
-        <GameDetail key={game.id} game={game}/>
+        <GameListDetail key={game.id} game={game}/>
       )}
     </div>
   );
