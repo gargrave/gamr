@@ -10,6 +10,7 @@ import apiHelper from '../../../utils/apiHelper';
 import dateHelper from '../../../utils/dateHelper';
 import GameList from '../components/GameList';
 import GameDatesList from '../components/GameDatesList';
+import TodayButton from '../components/TodayButton';
 
 
 class GameDetailPage extends React.Component {
@@ -142,27 +143,11 @@ class GameDetailPage extends React.Component {
   }
 
   render() {
-    const {game, working, apiError, showAddToday} = this.state;
+    const {game, working, apiError} = this.state;
     return (
       <div>
         <h3>{game.name}</h3>
         <hr/>
-
-        {showAddToday &&
-          <span
-            className="btn btn-block btn-info"
-            onClick={() => this.onAddTodayClick()}>
-            Add Today
-          </span>
-        }
-        {!showAddToday &&
-          <span
-            className="btn btn-block btn-warning"
-            onClick={() => this.onRemoveTodayClick()}>
-            Remove Today
-          </span>
-        }
-        <br/>
 
         {apiError &&
           <div className="alert alert-danger">Error: {apiError}</div>
@@ -186,20 +171,30 @@ class GameDetailPage extends React.Component {
           </li>
         </ul>
 
-        {/* 'edit game' button */}
-        <button
-          className="btn btn-success"
-          disabled={working}
-          onClick={this.redirectToEditPage}>
-          Edit
-        </button>&nbsp;
+        <TodayButton
+          working={working}
+          showAddToday={this.state.showAddToday}
+          addToday={() => this.onAddTodayClick()}
+          removeToday={() => this.onRemoveTodayClick()}
+        />
+        <br/>
 
-        <button
-          className="btn btn-default pull-right"
-          disabled={working}
-          onClick={this.redirectToListPage}>
-          Back
-        </button>
+        <div className="btn-group btn-group-justified">
+          {/* 'edit game' button */}
+          <span
+            className="btn btn-success"
+            disabled={working}
+            onClick={this.redirectToEditPage}>
+            Edit
+          </span>
+          {/* 'back' button -> back to games list */}
+          <span
+            className="btn btn-default"
+            disabled={working}
+            onClick={this.redirectToListPage}>
+            Back
+          </span>
+        </div>
         <hr/>
 
         <p>
