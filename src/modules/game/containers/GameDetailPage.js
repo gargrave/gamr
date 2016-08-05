@@ -9,8 +9,7 @@ import goto from '../../../utils/goto';
 import apiHelper from '../../../utils/apiHelper';
 import dateHelper from '../../../utils/dateHelper';
 import ActionCancelBtnGroup from '../../common/components/ActionCancelBtnGroup';
-import GameList from '../components/GameList';
-import GameDatesList from '../components/GameDatesList';
+import GameDetailBlock from '../components/GameDetailBlock';
 import TodayButton from '../components/TodayButton';
 
 
@@ -141,7 +140,7 @@ class GameDetailPage extends React.Component {
   }
 
   render() {
-    const {game, working, apiError} = this.state;
+    const {working, game, apiError} = this.state;
     return (
       <div>
         <h3>{game.name}</h3>
@@ -152,22 +151,7 @@ class GameDetailPage extends React.Component {
         }
 
         {/* game details */}
-        <ul className="list-group">
-          <li className="list-group-item">
-            <strong>Platform: </strong>{game.platform.name}
-          </li>
-          <GameDatesList
-            dates={game.dates}
-            working={working}
-            editable={false}
-            />
-          <li className="list-group-item">
-            <strong>Last played: </strong>{dateHelper.fromDateString(game.dates[0])}
-          </li>
-          <li className="list-group-item">
-            <strong>Finished: </strong>{game.finished.toString()}
-          </li>
-        </ul>
+        <GameDetailBlock working={working} game={game} />
 
         {/* 'add/remove today' button */}
         <TodayButton
