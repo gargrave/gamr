@@ -5,9 +5,10 @@ class ActionCancelBtnGroup extends Component {
   render() {
     const {working} = this.props;
     return (
-      <div className="btn-group btn-group-justified">
+      <div className="btn-group btn-group-justified" role="group">
         {/* 'action' button */}
         <span
+          type="button"
           className="btn btn-success"
           disabled={working}
           onClick={this.props.onActionClick}>
@@ -15,6 +16,7 @@ class ActionCancelBtnGroup extends Component {
         </span>
         {/* 'cancel' button */}
         <span
+          type="button"
           className="btn btn-default"
           disabled={working}
           onClick={this.props.onCancelClick}>

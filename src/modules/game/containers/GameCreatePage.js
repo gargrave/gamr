@@ -107,7 +107,7 @@ class GameCreatePage extends React.Component {
     let platformParams = { required: true };
     let platformVal = validate(game.platform, platformParams);
     if (!platformVal.valid) {
-      errors.platform = nameVal.error;
+      errors.platform = platformVal.error;
       valid = false;
     }
 
