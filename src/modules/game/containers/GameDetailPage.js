@@ -9,6 +9,7 @@ import goto from '../../../utils/goto';
 import apiHelper from '../../../utils/apiHelper';
 import dateHelper from '../../../utils/dateHelper';
 import ActionCancelBtnGroup from '../../common/components/ActionCancelBtnGroup';
+import ErrorAlert from '../../common/components/ErrorAlert';
 import GameDetailBlock from '../components/GameDetailBlock';
 import TodayButton from '../components/TodayButton';
 
@@ -146,9 +147,8 @@ class GameDetailPage extends React.Component {
         <h3>{game.name}</h3>
         <hr/>
 
-        {apiError &&
-          <div className="alert alert-danger">Error: {apiError}</div>
-        }
+        {/* API error message display */}
+        <ErrorAlert error={apiError} />
 
         {/* game details */}
         <GameDetailBlock working={working} game={game} />
