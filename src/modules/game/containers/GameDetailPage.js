@@ -8,6 +8,7 @@ import {GAME_API, PLATFORM_API} from '../../../constants/env';
 import goto from '../../../utils/goto';
 import apiHelper from '../../../utils/apiHelper';
 import dateHelper from '../../../utils/dateHelper';
+import ActionCancelBtnGroup from '../../common/components/ActionCancelBtnGroup';
 import GameList from '../components/GameList';
 import GameDatesList from '../components/GameDatesList';
 import TodayButton from '../components/TodayButton';
@@ -26,9 +27,6 @@ class GameDetailPage extends React.Component {
       apiError: '',
       showAddToday
     };
-
-    this.onDeleteClick = this.onDeleteClick.bind(this);
-    this.redirectToEditPage = this.redirectToEditPage.bind(this);
   }
 
   componentWillMount() {
@@ -171,6 +169,7 @@ class GameDetailPage extends React.Component {
           </li>
         </ul>
 
+        {/* 'add/remove today' button */}
         <TodayButton
           working={working}
           showAddToday={this.state.showAddToday}
@@ -179,27 +178,17 @@ class GameDetailPage extends React.Component {
         />
         <br/>
 
-        <div className="btn-group btn-group-justified">
-          {/* 'edit game' button */}
-          <span
-            className="btn btn-success"
-            disabled={working}
-            onClick={this.redirectToEditPage}>
-            Edit
-          </span>
-          {/* 'back' button -> back to games list */}
-          <span
-            className="btn btn-default"
-            disabled={working}
-            onClick={this.redirectToListPage}>
-            Back
-          </span>
-        </div>
+        {/* edit/back buttons */}
+        <ActionCancelBtnGroup
+          working={working}
+          onActionClick={() => this.redirectToEditPage()}
+          onCancelClick={() => this.redirectToListPage()}
+          actionText="Edit"
+          cancelText="Back"
+        />
         <hr/>
 
-        <p>
-          <a href="" onClick={this.onDeleteClick}>Delete this game</a>
-        </p>
+        <p><a href="" onClick={() => this.onDeleteClick()}>Delete this game</a></p>
       </div>
     );
   }
