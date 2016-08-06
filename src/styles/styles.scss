@@ -2,6 +2,10 @@ body {
   padding-top: 70px;
 }
 
+.success-text {
+  color: #3c763d;
+}
+
 .error-msg {
   margin-left: .5rem;
   color: #e50000;
@@ -13,6 +17,10 @@ body {
 
 .date-list-group {
   margin-bottom: 0;
+}
+
+.date-list-item-added {
+  background: #dff0d8;
 }
 
 // increase font size for forms on small devices

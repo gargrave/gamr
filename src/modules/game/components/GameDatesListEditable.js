@@ -8,27 +8,32 @@ class GameDatesListEditable extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    const sortedDates = this.getSortedDates(props.dates);
-    const dateCountOrig = props.dates.length;
-
-    let datesOrig = Object.assign([], props.dates);
+    const datesSorted = this.getSortedDates(props.dates);
+    const datesOrig = Object.assign([], props.dates);
 
     this.state = {
       datesOrig,
-      sortedDates,
-      dateCountOrig,
+      datesWorking: Object.assign([], datesOrig),
+      datesAdded: [],
+      datesSorted,
       dateCountChanged: 0,
       showDates: false,
       toggleDatesText: 'Show'
     };
+
+    this.getListItemClass = this.getListItemClass.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    const sortedDates = this.getSortedDates(nextProps.dates);
-    const dateCountOrig = nextProps.dates.length;
+    const datesOrig = this.state.datesOrig;
+    const datesWorking = Object.assign([], nextProps.dates);
+    const datesAdded = datesWorking.filter(d => !datesOrig.includes(d));
+    const datesSorted = this.getSortedDates(nextProps.dates);
+
     this.setState({
-      sortedDates,
-      dateCountOrig
+      datesWorking,
+      datesAdded,
+      datesSorted,
     });
   }
 
@@ -68,18 +73,31 @@ class GameDatesListEditable extends React.Component {
     this.props.onRemoveDate(dateStr);
   }
 
+  getListItemClass(listItem) {
+    if (!this.state.datesOrig.includes(listItem)) {
+      return 'list-group-item date-list-item-added clearfix';
+    }
+    return 'list-group-item clearfix';
+  }
+
+  onAddDateClick() {
+
+  }
+
   /*=============================================
    = render
    =============================================*/
   render() {
     const {dates, working} = this.props;
-    const {date, datesOrig, sortedDates, dateCountOrig, dateCountChanged, showDates, toggleDatesText} = this.state;
+    const {date, datesOrig, datesAdded, datesSorted, dateCountChanged, showDates, toggleDatesText} = this.state;
 
     return (
       <ul className="list-group">
         <li className="list-group-item">
-          {/*<strong>Dates played: </strong>{datesOrig.length} existing, {dateCountChanged} changed*/}
-          <strong>Dates played: </strong>TODO
+          <strong>Dates played: </strong>{datesOrig.length}
+          {!!datesAdded.length &&
+            <span className="success-text">, {datesAdded.length} new</span>
+          }
 
           {/* show/hide button */}
           <span
@@ -103,11 +121,11 @@ class GameDatesListEditable extends React.Component {
 
 
         {/* full list of dates */}
-        {this.state.showDates && !!sortedDates.length &&
+        {this.state.showDates && !!datesSorted.length &&
           <li className="list-group-item date-list-group-container">
             <ul className="list-group date-list-group">
-              {sortedDates.map(d =>
-                <li key={d} className="list-group-item clearfix">
+              {datesSorted.map(d =>
+                <li key={d} className={this.getListItemClass(d)}>
                   {dateHelper.fromDateString(d)}
                   <span className="btn btn-xs btn-default pull-right" onClick={() => this.onRemoveDateClick(d)}>
                     <span className="glyphicon glyphicon-trash" aria-hidden="true"></span>
@@ -119,7 +137,7 @@ class GameDatesListEditable extends React.Component {
         }
 
         {/* 'no dates' notification */}
-        {this.state.showDates && !sortedDates.length &&
+        {this.state.showDates && !datesSorted.length &&
           <li className="list-group-item date-list-group-container">
             <ul className="list-group date-list-group">
               <li className="list-group-item">No dates.</li>

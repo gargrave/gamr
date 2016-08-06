@@ -73,7 +73,7 @@ class GameDatesList extends React.Component {
     return (
       <ul className="list-group">
         <li className="list-group-item">
-          <strong>Dates played: </strong>TODO
+          <strong>Dates played: </strong>{dates.length}
 
           {/* show/hide button; not visible in non-editing view when no dates are present */}
           {!!dates.length &&
