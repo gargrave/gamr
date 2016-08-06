@@ -3,7 +3,7 @@ import React, {PropTypes} from 'react';
 import SubmitCancelBtnGroup from '../../common/components/SubmitCancelBtnGroup';
 import TextInput from '../../common/components/TextInput';
 import PlatformDropdown from '../../platform/components/PlatformDropdown';
-import GameDatesList from './GameDatesList';
+import GameDatesListEditable from './GameDatesListEditable';
 
 
 const GameForm = ({
@@ -28,10 +28,9 @@ const GameForm = ({
         error={errors.platform}
       />
 
-      <GameDatesList
+      <GameDatesListEditable
         dates={game.dates}
         working={working}
-        editable={true}
         onAddDate={onAddDate}
         onRemoveDate={onRemoveDate}
       />

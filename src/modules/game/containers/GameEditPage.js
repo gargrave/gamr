@@ -182,7 +182,8 @@ class GameEditPage extends React.Component {
           onCancel={this.onCancel}
           onAddDate={this.onAddDate}
           onRemoveDate={this.onRemoveDate}
-          />
+        />
+        <br/>
       </div>
     );
   }

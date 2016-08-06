@@ -7,6 +7,14 @@ body {
   color: #e50000;
 }
 
+.date-list-group-container {
+  background: #eee;
+}
+
+.date-list-group {
+  margin-bottom: 0;
+}
+
 // increase font size for forms on small devices
 input[type="text"], input[type="number"], textarea, select, select.form-control {
   font-size: 16px;

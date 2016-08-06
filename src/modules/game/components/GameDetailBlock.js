@@ -8,25 +8,25 @@ class GameDetailBlock extends Component {
   render() {
     const {game} = this.props;
     return (
-      <ul className="list-group">
-        <li className="list-group-item">
-          <strong>Platform: </strong>{game.platform.name}
-        </li>
+      <span>
+        <ul className="list-group">
+          <li className="list-group-item">
+            <strong>Platform: </strong>{game.platform.name}
+          </li>
+
+          <li className="list-group-item">
+            <strong>Last played: </strong>{dateHelper.fromDateString(game.dates[0])}
+          </li>
+
+          <li className="list-group-item">
+            <strong>Finished: </strong>{game.finished.toString()}
+          </li>
+        </ul>
 
         <GameDatesList
-          dates={game.dates}
-          working={this.props.working}
-          editable={false}
+            dates={game.dates}
           />
-
-        <li className="list-group-item">
-          <strong>Last played: </strong>{dateHelper.fromDateString(game.dates[0])}
-        </li>
-
-        <li className="list-group-item">
-          <strong>Finished: </strong>{game.finished.toString()}
-        </li>
-      </ul>
+      </span>
     );
   }
 }

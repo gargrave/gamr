@@ -4,7 +4,7 @@ import dateHelper from '../../../utils/dateHelper';
 import GameDateAdder from './GameDateAdder';
 
 
-class GameDatesList extends React.Component {
+class GameDatesListEditable extends React.Component {
   constructor(props, context) {
     super(props, context);
 
@@ -17,6 +17,7 @@ class GameDatesList extends React.Component {
       datesOrig,
       sortedDates,
       dateCountOrig,
+      dateCountChanged: 0,
       showDates: false,
       toggleDatesText: 'Show'
     };
@@ -63,27 +64,42 @@ class GameDatesList extends React.Component {
     });
   }
 
+  onRemoveDateClick(dateStr) {
+    this.props.onRemoveDate(dateStr);
+  }
+
   /*=============================================
    = render
    =============================================*/
   render() {
-    const {dates} = this.props;
-    const {sortedDates, showDates, toggleDatesText} = this.state;
+    const {dates, working} = this.props;
+    const {date, datesOrig, sortedDates, dateCountOrig, dateCountChanged, showDates, toggleDatesText} = this.state;
 
     return (
       <ul className="list-group">
         <li className="list-group-item">
+          {/*<strong>Dates played: </strong>{datesOrig.length} existing, {dateCountChanged} changed*/}
           <strong>Dates played: </strong>TODO
 
-          {/* show/hide button; not visible in non-editing view when no dates are present */}
-          {!!dates.length &&
-            <span
-              className="btn btn-xs btn-primary pull-right"
-              onClick={() => this.onToggleDatesClick()}
-              >{toggleDatesText}
-            </span>
-          }
+          {/* show/hide button */}
+          <span
+            className="btn btn-xs btn-primary pull-right"
+            onClick={() => this.onToggleDatesClick()}>
+            {toggleDatesText}
+          </span>
         </li>
+
+
+        {/* 'add date' controls */}
+        {this.state.showDates &&
+          <li className="list-group-item">
+            <GameDateAdder
+              working={working}
+              dates={dates}
+              onAddDate={this.props.onAddDate}
+            />
+          </li>
+        }
 
 
         {/* full list of dates */}
@@ -93,6 +109,9 @@ class GameDatesList extends React.Component {
               {sortedDates.map(d =>
                 <li key={d} className="list-group-item clearfix">
                   {dateHelper.fromDateString(d)}
+                  <span className="btn btn-xs btn-default pull-right" onClick={() => this.onRemoveDateClick(d)}>
+                    <span className="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                  </span>
                 </li>
               )}
             </ul>
@@ -112,8 +131,11 @@ class GameDatesList extends React.Component {
   }
 }
 
-GameDatesList.propTypes = {
+GameDatesListEditable.propTypes = {
+  working: PropTypes.bool.isRequired,
   dates: PropTypes.array.isRequired,
+  onAddDate: PropTypes.func,
+  onRemoveDate: PropTypes.func
 };
 
-export default GameDatesList;
+export default GameDatesListEditable;
