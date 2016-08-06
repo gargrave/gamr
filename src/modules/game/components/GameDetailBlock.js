@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 
 import dateHelper from '../../../utils/dateHelper';
+import filters from '../../../utils/filters';
 import GameDatesList from './GameDatesList';
 
 
@@ -19,7 +20,7 @@ class GameDetailBlock extends Component {
           </li>
 
           <li className="list-group-item">
-            <strong>Finished: </strong>{game.finished.toString()}
+            <strong>Finished: </strong>{filters.bool(game.finished.toString())}
           </li>
         </ul>
 
