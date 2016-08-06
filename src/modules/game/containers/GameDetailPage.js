@@ -27,6 +27,8 @@ class GameDetailPage extends React.Component {
       apiError: '',
       showAddToday
     };
+
+    this.onDeleteClick = this.onDeleteClick.bind(this);
   }
 
   componentWillMount() {
@@ -48,7 +50,7 @@ class GameDetailPage extends React.Component {
    = state helper methods
    =============================================*/
   showAddTodayPropsToState(props) {
-    return !props.game.dates.includes(dateHelper.todayDateString());
+    return !!props.game.dates && !props.game.dates.includes(dateHelper.todayDateString());
   }
 
   buildGameForState(gameData) {
@@ -172,7 +174,7 @@ class GameDetailPage extends React.Component {
         />
         <hr/>
 
-        <p><a href="" onClick={() => this.onDeleteClick()}>Delete this game</a></p>
+        <p><a href="" onClick={this.onDeleteClick}>Delete this game</a></p>
       </div>
     );
   }
