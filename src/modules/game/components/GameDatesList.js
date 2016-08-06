@@ -73,54 +73,58 @@ class GameDatesList extends React.Component {
    =============================================*/
   render() {
     const {dates, working, editable} = this.props;
-    const {
-      date, datesOrig, sortedDates, dateCountOrig, dateCountChanged, showDates, toggleDatesText
-    } = this.state;
+    const {date, datesOrig, sortedDates, dateCountOrig, dateCountChanged, showDates, toggleDatesText} = this.state;
 
     return (
-      <li className="list-group-item">
+      <ul className="list-group">
+        <li className="list-group-item">
+          {/*<strong>Dates played: </strong>{datesOrig.length} existing, {dateCountChanged} changed*/}
+          <strong>Dates played: </strong>TODO
 
-        {/*<strong>Dates played: </strong>{datesOrig.length} existing, {dateCountChanged} changed*/}
-        <strong>Dates played: </strong>TODO
+          {/* show/hide button; not visible in non-editing view when no dates are present */}
+          {(editable || !!dates.length) &&
+            <span
+              className="btn btn-xs btn-primary pull-right"
+              onClick={() => this.onToggleDatesClick()}
+              >{toggleDatesText}
+            </span>
+          }
+        </li>
 
-        {/* show/hide button; not visible in non-editing view when no dates are present */}
-        {(editable || !!dates.length) &&
-          <span
-            className="btn btn-xs btn-primary pull-right"
-            onClick={() => this.onToggleDatesClick()}
-            >{toggleDatesText}
-          </span>
+
+        {/* 'add date' controls, when form is editable */}
+        {editable && this.state.showDates &&
+          <li className="list-group-item">
+            <GameDateAdder
+              working={working}
+              dates={dates}
+              onAddDate={this.props.onAddDate}
+            />
+          </li>
         }
 
+
+        {/* full list of dates */}
         {this.state.showDates &&
-          <section>
-            <br/>
-            <ul className="list-group">
-
-              {/* 'add date' controls, when form is editable */}
-              {editable &&
-                <GameDateAdder
-                  working={working}
-                  dates={dates}
-                  onAddDate={this.props.onAddDate}
-                />
-              }
-
-              {/* full list of dates */}
-              {sortedDates.map(d =>
-                <li key={d} className="list-group-item clearfix">
-                  {dateHelper.fromDateString(d) }
-                  {editable &&
-                    <span className="btn btn-xs btn-default pull-right" onClick={() => this.onRemoveDateClick(d)}>
-                      <span className="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                    </span>
-                  }
-                </li>
-              )}
-            </ul>
-          </section>
+          <li className="list-group-item">
+            <section>
+              <br/>
+              <ul className="list-group">
+                {sortedDates.map(d =>
+                  <li key={d} className="list-group-item clearfix">
+                    {dateHelper.fromDateString(d) }
+                    {editable &&
+                      <span className="btn btn-xs btn-default pull-right" onClick={() => this.onRemoveDateClick(d)}>
+                        <span className="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                      </span>
+                    }
+                  </li>
+                )}
+              </ul>
+            </section>
+          </li>
         }
-      </li>
+      </ul>
     );
   }
 }

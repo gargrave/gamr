@@ -85,7 +85,7 @@ class GameDateAdder extends React.Component {
     const {date, disableAdd} = this.state;
 
     return (
-      <li className="list-group-item ">
+      <div>
         {/* month dropdown */}
         <label htmlFor="month">M: </label>
         <select name="month" id="month" value={date.month} onChange={this.onDateChange}>
@@ -123,7 +123,7 @@ class GameDateAdder extends React.Component {
           onClick={() => this.onAddDateClick()}>
           Add
         </span>
-      </li>
+      </div>
     );
   }
 }

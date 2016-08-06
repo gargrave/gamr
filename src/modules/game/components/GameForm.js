@@ -28,15 +28,13 @@ const GameForm = ({
         error={errors.platform}
       />
 
-      <ul className="list-group">
-        <GameDatesList
-          dates={game.dates}
-          working={working}
-          editable={true}
-          onAddDate={onAddDate}
-          onRemoveDate={onRemoveDate}
-        />
-      </ul>
+      <GameDatesList
+        dates={game.dates}
+        working={working}
+        editable={true}
+        onAddDate={onAddDate}
+        onRemoveDate={onRemoveDate}
+      />
 
       {/* 'finished' checkbox */}
       <div className="checkbox">
