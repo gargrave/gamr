@@ -138,6 +138,7 @@ class GameCreatePage extends React.Component {
           onAddDate={this.onAddDate}
           onRemoveDate={this.onRemoveDate}
         />
+        <br/>
       </div>
     );
   }

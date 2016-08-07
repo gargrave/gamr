@@ -106,7 +106,8 @@ class PlatformCreatePage extends React.Component {
           onChange={this.onChange}
           onSubmit={this.onSubmit}
           onCancel={this.onCancel}
-          />
+        />
+        <br/>
       </div>
     );
   }
