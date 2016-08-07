@@ -1,10 +1,7 @@
 import moment from 'moment';
 
 
-const now = moment();
-const nowYear = (now.year()).toString();
-const nowMonth = (now.month() + 1).toString();
-const nowDate = (now.date()).toString();
+const ONE_DAY_MS = 86400000;
 
 const padLeft = function(orig, length, pad = '0') {
   let padded = orig;
@@ -14,9 +11,26 @@ const padLeft = function(orig, length, pad = '0') {
   return padded;
 };
 
+const now = moment();
+const nowYear = (now.year()).toString();
+const nowMonth = (now.month() + 1).toString();
+const nowDate = (now.date()).toString();
+const todayDateString = `${nowYear}-${padLeft(nowMonth, 2)}-${padLeft(nowDate, 2)}`;
+const todayMoment = moment(todayDateString);
+
 export default {
   fromDateString: function(date) {
     return moment(date).format('MMMM Do, YYYY (dddd)');
+  },
+
+  timeAgoString: function(date) {
+    const diff = moment(todayMoment).diff(date);
+    if (diff < ONE_DAY_MS) {
+      return 'Today';
+    } else if (diff < ONE_DAY_MS * 2) {
+      return 'Yesterday';
+    }
+    return moment(date).from(todayMoment);
   },
 
   currentYear: () => nowYear,
@@ -32,6 +46,6 @@ export default {
   },
 
   todayDateString: function() {
-    return `${nowYear}-${padLeft(nowMonth, 2)}-${padLeft(nowDate, 2)}`;
+    return todayDateString;
   }
 };
