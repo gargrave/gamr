@@ -159,7 +159,7 @@ class AccountPage extends React.Component {
    = Render
    ==============================================*/
   render() {
-    const {editing} = this.state;
+    const {editing, apiError} = this.state;
     return (
       <div>
         {/* user info display (i.e. non-editing state) */}
@@ -189,6 +189,13 @@ class AccountPage extends React.Component {
         {/* user edit form (i.e. editing state) */}
         {editing &&
           <section>
+            <h3>Update Profile</h3>
+            <hr/>
+
+            {apiError &&
+              <div className="alert alert-danger">Error: {apiError}</div>
+            }
+
             <ProfileForm
               working={this.state.working}
               user={this.props.user}
