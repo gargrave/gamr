@@ -13,8 +13,12 @@ const PlatformList = ({platforms}) => {
       }
 
       {/* list shown when user has 1 or more platforms */}
-      {!!count && platforms.map(platform =>
-        <PlatformDetail key={platform.id} platform={platform}/>
+      {!!count && platforms.map((platform, idx) =>
+        <PlatformDetail
+          key={platform.id}
+          platform={platform}
+          altRow={idx % 2 !== 0}
+        />
       )}
     </div>
   );

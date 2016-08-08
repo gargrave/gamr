@@ -13,8 +13,12 @@ const GameList = ({games}) => {
       }
 
       {/* list shown when user has 1 or more games */}
-      {!!count && games.map(game =>
-        <GameListDetail key={game.id} game={game}/>
+      {!!count && games.map((game, idx) =>
+        <GameListDetail
+          key={game.id}
+          game={game}
+          altRow={idx % 2 !== 0}
+        />
       )}
     </div>
   );
