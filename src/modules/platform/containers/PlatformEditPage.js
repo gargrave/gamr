@@ -43,7 +43,7 @@ class PlatformEditPage extends React.Component {
 
     // compare platform 'name' properties
     let nameOrig = this.state.platformCopy.name;
-    let nameNew = this.state.platform.name;
+    let nameNew = this.state.platform.name.trim();
     if (nameNew && nameNew !== nameOrig) {
       platformIsDirty = true;
     }

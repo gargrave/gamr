@@ -52,7 +52,7 @@ class GameEditPage extends React.Component {
 
     // compare game 'name' properties
     let nameOrig = this.state.gameCopy.name;
-    let nameNew = this.state.game.name;
+    let nameNew = this.state.game.name.trim();
     if (nameNew && nameNew !== nameOrig) {
       gameIsDirty = true;
     }

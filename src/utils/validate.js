@@ -36,14 +36,15 @@ function isValidTwitter(value) {
  *        twitter: must be a valid Twitter handle
  *            (starts with '@', and no more than 15 characters)
  *
- * @param value - The value to check for validation
+ * @param _value - The value to check for validation
  * @param rules - The rules object specifying how the data needs to be validated
  * @returns {Object} An object with two properties:
  *      valid: boolean, whether the data validates
  *      error: string, an appropriate error message is data is invalid; otherwise empty string
  *        (Note that the function will return as soon as any rule is not met.)
  */
-function validate(value, rules) {
+function validate(_value, rules) {
+  const value = _value.trim();
   const isRequired = rules.required;
   const isBlank = !value.length || value === null || value === undefined;
 
