@@ -1,6 +1,8 @@
 import firebase from '../../etc/firebaseConfig';
 import auth from '../auth/authApi';
 
+import gameData from './gameData';
+
 
 const MODULE_NAME = 'games';
 const DB = firebase.database();
@@ -9,41 +11,17 @@ const getUrlFor = function(user, obj) {
   return DB.ref(`${MODULE_NAME}/${user.uid}/${obj.id}`);
 };
 
-const buildRecordData = function(record) {
-  let dateNow = new Date();
-  return {
-    name: record.name.trim(),
-    platform: record.platform,
-    dates: record.dates || [],
-    finished: record.finished,
-    created: dateNow.getTime(),
-    modified: dateNow.getTime()
-  };
-};
-
 let currentUserId = null;
 
 
 class GameApi {
-  static getNewRecord() {
-    let dateNow = new Date();
-    return {
-      name: '',
-      platform: '',
-      dates: [],
-      finished: false,
-      created: dateNow.getTime(),
-      modified: dateNow.getTime()
-    };
-  }
-
   /** Creates and saves a new record to the DB. */
   static createRecord(record) {
     return new Promise((resolve, reject) => {
       if (auth.isLoggedIn()) {
         let userId = auth.user().uid.toString();
         let dbRef = DB.ref(`${MODULE_NAME}/${userId}`);
-        let newRecordData = buildRecordData(record);
+        let newRecordData = gameData.buildRecordData(record);
         let newRecordRef = dbRef.push();
 
         newRecordRef.set(newRecordData, err => {
@@ -66,7 +44,7 @@ class GameApi {
     return new Promise((resolve, reject) => {
       if (auth.isLoggedIn()) {
         let recordUrl = getUrlFor(auth.user(), record);
-        let game = buildRecordData(record);
+        let game = gameData.buildRecordData(record);
         game.created = record.created;
 
         recordUrl.update(game, err => {

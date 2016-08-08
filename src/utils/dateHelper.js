@@ -24,6 +24,10 @@ export default {
   },
 
   timeAgoString: function(date) {
+    if (!date) {
+      return 'Never';
+    }
+
     const diff = moment(todayMoment).diff(date);
     if (diff < ONE_DAY_MS) {
       return 'Today';

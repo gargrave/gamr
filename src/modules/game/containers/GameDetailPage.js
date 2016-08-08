@@ -4,7 +4,8 @@ import {bindActionCreators} from 'redux';
 import toastr from 'toastr';
 
 import * as actions from '../gameActions';
-import {GAME_API, PLATFORM_API} from '../../../constants/env';
+import {PLATFORM_API} from '../../../constants/env';
+import gameData from '../gameData';
 import goto from '../../../utils/goto';
 import apiHelper from '../../../utils/apiHelper';
 import dateHelper from '../../../utils/dateHelper';
@@ -190,7 +191,7 @@ function mapStateToProps(state, ownProps) {
   let game = apiHelper.findRecordById(state.games, gameId);
 
   if (!game) {
-    game = GAME_API.getNewRecord();
+    game = gameData.getNewRecord();
   } else {
     game.platform = apiHelper.findRecordById(state.platforms, game.platform);
   }

@@ -1,6 +1,7 @@
 import * as types from '../../constants/actionTypes';
 import {USE_MOCK_APIS} from '../../constants/env';
 import {fbToArray} from '../firebase/firebaseUtils';
+import gameData from './gameData';
 
 import mockGameApi from './gameApiMock';
 import liveGameApi from './gameApi';
@@ -80,12 +81,7 @@ function deleteGameError() {
  =============================================*/
 export function fetchGamesSuccess(games) {
   return function(dispatch) {
-    let gamesArray = fbToArray(games);
-    gamesArray.map(g => {
-      if (!g.dates) {
-        g.dates = [];
-      }
-    });
+    let gamesArray = gameData.parseGamesList(fbToArray(games));
     dispatch(_fetchGamesSuccess(gamesArray));
   };
 }

@@ -3,19 +3,8 @@ import auth from '../auth/authApiMock';
 import {each} from 'lodash';
 
 import {MOCK_API_DELAY} from '../../constants/env';
+import gameData from './gameData';
 
-
-const buildRecordData = function(record) {
-  let dateNow = new Date();
-  return {
-    name: record.name.trim(),
-    platform: record.platform,
-    dates: record.dates || [],
-    finished: record.finished,
-    created: dateNow.getTime(),
-    modified: dateNow.getTime()
-  };
-};
 
 let gameId = 10;
 let mockDate = new Date();
@@ -37,6 +26,16 @@ let games = {
       modified: timestamp
     },
     '1': {
+      name: 'Diablo 3',
+      platform: '2',
+      dates: [
+        '2016-07-06'
+      ],
+      finished: true,
+      created: timestamp,
+      modified: timestamp
+    },
+    '2': {
       name: 'Heroes of the Storm',
       platform: '2',
       dates: [
@@ -45,13 +44,6 @@ let games = {
         '2016-07-15'
       ],
       finished: false,
-      created: timestamp,
-      modified: timestamp
-    },
-    '2': {
-      name: 'Diablo 3',
-      platform: '2',
-      finished: true,
       created: timestamp,
       modified: timestamp
     },
@@ -106,18 +98,6 @@ let listeners = [];
 
 
 class GameApiMock {
-  static getNewRecord() {
-    let dateNow = new Date();
-    return {
-      name: '',
-      platform: '',
-      dates: [],
-      finished: false,
-      created: dateNow.getTime(),
-      modified: dateNow.getTime()
-    };
-  }
-
   /** Creates and saves a new record to the DB. */
   static createRecord(record) {
     console.log('MOCK GAME API: using mock API -> createRecord()');
@@ -128,7 +108,7 @@ class GameApiMock {
           let userGames = games[userId];
 
           let id = (gameId++).toString();
-          let game = buildRecordData(record);
+          let game = gameData.buildRecordData(record);
           userGames[id] = game;
 
           this.notifyListeners();
@@ -150,7 +130,7 @@ class GameApiMock {
 
         if (userGames[id]) {
           setTimeout(() => {
-            let game = buildRecordData(record);
+            let game = gameData.buildRecordData(record);
             game.id = id;
             game.created = record.created;
             userGames[id] = game;

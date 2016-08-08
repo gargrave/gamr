@@ -17,7 +17,7 @@ class GameDetailBlock extends Component {
 
           <li className="list-group-item">
             <strong>Last played: </strong>
-            {game.dates.length ? dateHelper.timeAgoString(game.dates[0]) : 'Never'}
+            {dateHelper.timeAgoString(game.lastPlayed)}
           </li>
 
           <li className="list-group-item">

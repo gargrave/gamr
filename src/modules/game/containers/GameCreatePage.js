@@ -4,7 +4,8 @@ import {bindActionCreators} from 'redux';
 import toastr from 'toastr';
 
 import * as actions from '../gameActions';
-import {GAME_API, PLATFORM_API} from '../../../constants/env';
+import {PLATFORM_API} from '../../../constants/env';
+import gameData from '../gameData';
 import validate from '../../../utils/validate';
 import goto from '../../../utils/goto';
 import GameForm from '../components/GameForm';
@@ -154,7 +155,7 @@ GameCreatePage.propTypes = {
  =============================================*/
 function mapStateToProps(state, ownProps) {
   return {
-    game: GAME_API.getNewRecord()
+    game: gameData.getNewRecord()
   };
 }
 

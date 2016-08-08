@@ -11,7 +11,7 @@ const GameListDetail = ({game}) => {
       <strong>{game.name}</strong>
       <br/>
       <span className="text-muted">
-        Last played: {game.dates.length ? dateHelper.timeAgoString(game.dates[0]) : 'Never'}
+        Last played: {dateHelper.timeAgoString(game.lastPlayed)}
       </span>
     </Link>
   );
