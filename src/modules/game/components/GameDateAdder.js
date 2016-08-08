@@ -24,6 +24,11 @@ class GameDateAdder extends React.Component {
     this.onDateChange = this.onDateChange.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.updateAddButtonState(nextProps);
+  }
+
+
   /**
    * Checks and returns whether the supplied props object contains the specified date string.
    *
