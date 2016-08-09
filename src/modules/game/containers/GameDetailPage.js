@@ -19,11 +19,10 @@ class GameDetailPage extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    const game = this.buildGameForState(props.game);
     const showAddToday = this.showAddTodayPropsToState(props);
 
     this.state = {
-      game,
+      game: Object.assign({}, props.game),
       working: false,
       apiError: '',
       showAddToday
@@ -54,10 +53,27 @@ class GameDetailPage extends React.Component {
     return !!props.game.dates && !props.game.dates.includes(dateHelper.todayDateString());
   }
 
-  buildGameForState(gameData) {
+  refreshGameInState(gameData) {
     let game = Object.assign({}, gameData);
-    game.dates.sort((a, b) => b > a ? 1 : -1);
+    game.platform = this.state.game.platform;
     return game;
+  }
+
+  updateGame(game) {
+    this.setState({ working: true });
+    this.props.actions.updateGame(game)
+      .then(res => {
+        this.setState({
+          game: this.refreshGameInState(game),
+          working: false
+        });
+      }, err => {
+        this.setState({
+          working: false,
+          apiError: err.message
+        });
+        toastr.error('Error updating game', 'Error');
+      });
   }
 
   /*=============================================
@@ -82,20 +98,8 @@ class GameDetailPage extends React.Component {
 
     if (!dates.includes(today)) {
       game.dates = dates.concat(today);
-      this.setState({ working: true });
-      this.props.actions.updateGame(game)
-        .then(res => {
-          this.setState({
-            game: this.buildGameForState(game),
-            working: false
-          });
-        }, err => {
-          this.setState({
-            working: false,
-            apiError: err.message
-          });
-          toastr.error('Error updating game', 'Error');
-        });
+      game.platform = this.state.game.platform.id;
+      this.updateGame(game);
     }
   }
 
@@ -106,20 +110,8 @@ class GameDetailPage extends React.Component {
 
     if (game.dates.includes(today)) {
       game.dates = dates.filter(d => d !== today);
-      this.setState({ working: true });
-      this.props.actions.updateGame(game)
-        .then(res => {
-          this.setState({
-            game: this.buildGameForState(game),
-            working: false
-          });
-        }, err => {
-          this.setState({
-            working: false,
-            apiError: err.message
-          });
-          toastr.error('Error updating game', 'Error');
-        });
+      game.platform = this.state.game.platform.id;
+      this.updateGame(game);
     }
   }
 
