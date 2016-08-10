@@ -53,9 +53,10 @@ class GameDetailPage extends React.Component {
     return !!props.game.dates && !props.game.dates.includes(dateHelper.todayDateString());
   }
 
-  refreshGameInState(gameData) {
-    let game = Object.assign({}, gameData);
+  refreshGameInState(_game) {
+    let game = Object.assign({}, _game);
     game.platform = this.state.game.platform;
+    game.lastPlayed = game.dates[0] || '';
     return game;
   }
 
