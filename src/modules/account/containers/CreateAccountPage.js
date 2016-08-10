@@ -126,7 +126,7 @@ class CreateAccountPage extends React.Component {
             working: false,
             apiError: err.message
           });
-          toastr.error('Login error', 'Error');
+          toastr.error('Error creating account', 'Error');
         });
     }
   }

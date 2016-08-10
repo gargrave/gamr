@@ -8,10 +8,12 @@ import profileData from './profileData';
 
 let profiles = {
   '0': {
-    name: 'Dude McGee'
+    name: 'Dude McGee',
+    preferredPlatform: '2'
   },
   '1': {
-    name: 'Bob Smith'
+    name: 'Bob Smith',
+    preferredPlatform: '4'
   }
 };
 

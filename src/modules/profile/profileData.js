@@ -1,13 +1,15 @@
 export default {
   getNewRecord: () => {
     return {
-      name: ''
+      name: '',
+      preferredPlatform: ''
     };
   },
 
   buildRecordData: (record) => {
     return {
-      name: record.name.trim()
+      name: record.name.trim(),
+      preferredPlatform: record.preferredPlatform,
     };
   }
 };
