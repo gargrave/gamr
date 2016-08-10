@@ -1,5 +1,6 @@
 import firebase from '../../etc/firebaseConfig';
 import auth from '../auth/authApi';
+import profileData from './profileData';
 
 
 const MODULE_NAME = 'profiles';
@@ -9,27 +10,15 @@ const getUrlFor = function(user, obj) {
   return DB.ref(`${MODULE_NAME}/${user.uid}`);
 };
 
-const buildRecordData = function(record) {
-  return {
-    name: record.name.trim()
-  };
-};
-
 let currentUserId = null;
 
 
 class ProfileApi {
-  static getNewRecord() {
-    return {
-      name: ''
-    };
-  }
-
   /** Creates and saves a new record to the DB. */
   static createProfile(user) {
     return new Promise((resolve, reject) => {
       let dbRef = DB.ref(`${MODULE_NAME}/${user.uid}`);
-      let newRecordData = this.getNewRecord();
+      let newRecordData = profileData.getNewRecord();
 
       dbRef.set(newRecordData, err => {
         if (err) {

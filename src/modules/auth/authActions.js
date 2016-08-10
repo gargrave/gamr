@@ -1,5 +1,5 @@
 import * as types from '../../constants/actionTypes';
-import api from './authApi';
+import authData from './authData';
 
 
 function _authAjaxStart() {
@@ -51,7 +51,7 @@ export function authAjaxEnd() {
 
 export function loginSuccess(user) {
   return function(dispatch) {
-    let cleanUserData = api.buildUserData(user);
+    let cleanUserData = authData.buildUserData(user);
     dispatch(_loginSuccess(cleanUserData));
     dispatch(_authAjaxEnd());
   };

@@ -34,18 +34,6 @@ let listeners = [];
 
 
 class AuthApiMock {
-  static buildUserData(user) {
-    console.log('MOCK AUTH API: using mock API -> buildUserData()');
-    return {
-      uid: user.uid,
-      email: user.email,
-      emailVerified: user.emailVerified,
-      displayName: user.displayName,
-      isAnonymous: user.isAnonymous,
-      photoURL: user.photoURL
-    };
-  }
-
   /** @return {Object} - The current user data, or null if no user is logged in. */
   static user() {
     console.log('MOCK AUTH API: using mock API -> user()');

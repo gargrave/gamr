@@ -3,13 +3,8 @@ import auth from '../auth/authApiMock';
 import {each} from 'lodash';
 
 import {MOCK_API_DELAY} from '../../constants/env';
+import profileData from './profileData';
 
-
-const buildRecordData = function(record) {
-  return {
-    name: record.name.trim()
-  };
-};
 
 let profiles = {
   '0': {
@@ -25,17 +20,11 @@ let listeners = [];
 
 
 class ProfileApiMock {
-  static getNewRecord() {
-    return {
-      name: ''
-    };
-  }
-
   /** Creates and saves a new record to the DB. */
   static createProfile(user) {
     console.log('MOCK PROFILE API: using mock API -> createProfile()');
     return new Promise((resolve, reject) => {
-      let profile = this.getNewRecord();
+      let profile = profileData.getNewRecord();
       profiles[user.uid] = profile;
       resolve(profile);
     });
@@ -52,7 +41,7 @@ class ProfileApiMock {
         return new Promise((resolve) => {
           setTimeout(() => {
             let id = record.id;
-            let updatedProfile = buildRecordData(record);
+            let updatedProfile = profileData.buildRecordData(record);
             updatedProfile.id = id;
             profiles[userId] = updatedProfile;
             this.notifyListeners();

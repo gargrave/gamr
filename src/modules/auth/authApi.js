@@ -7,17 +7,6 @@ const fbAuth = firebase.auth();
 
 
 class AuthApi {
-  static buildUserData(user) {
-    return {
-      uid: user.uid,
-      email: user.email,
-      emailVerified: user.emailVerified,
-      displayName: user.displayName,
-      isAnonymous: user.isAnonymous,
-      photoURL: user.photoURL
-    };
-  }
-
   /** @return {Object} - The current user data, or null if no user is logged in. */
   static user() {
     return fbAuth.currentUser;
