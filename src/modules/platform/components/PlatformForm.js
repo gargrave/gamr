@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 
+import SubmitCancelBtnGroup from '../../common/components/SubmitCancelBtnGroup';
 import TextInput from '../../common/components/TextInput';
 
 
@@ -16,22 +17,12 @@ const PlatformForm = ({platform, working, errors, platformIsDirty,
         error={errors.name}
         />
 
-      <input
-        type="submit"
-        value="Submit"
-        className="btn btn-success"
-        disabled={working || !platformIsDirty}
-        onClick={onSubmit}
-        />&nbsp;
-
-      {!working &&
-        <button
-          className="btn btn-default"
-          disabled={working}
-          onClick={onCancel}
-          >Cancel
-        </button>
-      }
+      <SubmitCancelBtnGroup
+        working={working}
+        disableSubmit={!platformIsDirty}
+        onSubmit={onSubmit}
+        onCancelClick={onCancel}
+      />
     </form>
   );
 };

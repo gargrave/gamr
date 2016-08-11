@@ -7,7 +7,7 @@ import * as actions from '../platformActions';
 import {PLATFORM_API} from '../../../constants/env';
 import goto from '../../../utils/goto';
 import apiHelper from '../../../utils/apiHelper';
-import PlatformList from '../components/PlatformList';
+import ActionCancelBtnGroup from '../../common/components/ActionCancelBtnGroup';
 
 
 class PlatformDetailPage extends React.Component {
@@ -83,20 +83,14 @@ class PlatformDetailPage extends React.Component {
           </div>
         </div>
 
-        <button
-          className="btn btn-success"
-          disabled={working}
-          onClick={this.redirectToEditPage}>
-          Edit
-        </button>&nbsp;
-
-        {!working &&
-          <button
-            className="btn btn-default"
-            onClick={this.redirectToListPage}>
-            Back
-          </button>
-        }
+        {/* edit/back buttons */}
+        <ActionCancelBtnGroup
+          working={working}
+          onActionClick={() => this.redirectToEditPage()}
+          onCancelClick={() => this.redirectToListPage()}
+          actionText="Edit"
+          cancelText="Back"
+        />
         <hr/>
 
         <p>
