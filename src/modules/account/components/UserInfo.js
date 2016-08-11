@@ -32,13 +32,6 @@ const UserInfo = ({user, profile}) => {
         </li>
       </ul>
       <hr/>
-
-      <ul className="list-group">
-        <li className="list-group-item">
-          <strong>Preferred Platform: </strong>{profile.preferredPlatform}
-        </li>
-      </ul>
-      <hr/>
     </div>
   );
 };
