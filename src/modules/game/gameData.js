@@ -13,11 +13,12 @@ export default {
 
   buildRecordData: function(record) {
     let dateNow = new Date();
-    let dates = record.dates ? record.dates.sort((a, b) => b > a ? 1 : -1) : [];
+    let dates = record.dates ?
+      Object.assign([], record.dates.sort((a, b) => b > a ? 1 : -1)) : [];
 
     return {
       name: record.name.trim(),
-      platform: record.platform,
+      platform: Object.assign({}, record.platform),
       dates,
       lastPlayed: dates[0] || '',
       finished: record.finished,
